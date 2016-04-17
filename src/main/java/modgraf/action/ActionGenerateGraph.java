@@ -58,10 +58,22 @@ public class ActionGenerateGraph implements ActionListener
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0)
+	public void actionPerformed(ActionEvent event)
 	{
-		openParamsWindow();
+		if (!editor.isModified()
+				|| JOptionPane.showConfirmDialog(editor.getGraphComponent(),
+				lang.getProperty("question-changes-exist"))
+				== JOptionPane.YES_OPTION)
+		{
+			openParamsWindow();
+		}
 	}
+
+//	@Override
+//	public void actionPerformed(ActionEvent arg0)
+//	{
+//		openParamsWindow();
+//	}
 	
 	private void generate()
 	{
