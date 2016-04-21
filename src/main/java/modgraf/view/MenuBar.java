@@ -169,7 +169,7 @@ public class MenuBar extends JMenuBar
 
     private JMenu createMenuMaximumFlow() {
         JMenu maximumFlow = new JMenu(lang.getProperty("menu-algorithm-maximum-flow"));
-        maximumFlow.add(createDisabledAlgorithm("menu-algorithm-maximum-flow-ek", 	 new ModgrafEdmondsKarpMaximumFlow(editor), directed, weighted));
+        maximumFlow.add(createDisabledAlgorithm("menu-algorithm-maximum-flow-ek", 	 new ModgrafEdmondsKarpMaximumFlow(editor), directed, any));
         return maximumFlow;
     }
 

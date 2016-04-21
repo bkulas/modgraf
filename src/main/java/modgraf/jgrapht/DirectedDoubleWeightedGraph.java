@@ -3,6 +3,8 @@ package modgraf.jgrapht;
 import modgraf.jgrapht.edge.DoubleWeightedEdge;
 import modgraf.jgrapht.edge.DoubleWeightedEdgeImpl;
 
+import modgraf.jgrapht.edge.ModgrafEdge;
+import modgraf.jgrapht.edge.WeightedEdge;
 import org.jgrapht.EdgeFactory;
 import org.jgrapht.graph.SimpleDirectedGraph;
 
@@ -50,5 +52,12 @@ public class DirectedDoubleWeightedGraph<V, E> extends SimpleDirectedGraph<V, E>
 	{
 		assert (e instanceof DoubleWeightedEdgeImpl) : e.getClass();
 		return ((DoubleWeightedEdge) e).getCapacity();
+	}
+
+	@Override
+	public double getEdgeWeight(E edge)
+	{
+		assert (edge instanceof DoubleWeightedEdgeImpl) : edge.getClass();
+		return ((DoubleWeightedEdge) edge).getCapacity();
 	}
 }

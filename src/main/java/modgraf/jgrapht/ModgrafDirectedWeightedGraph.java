@@ -1,5 +1,6 @@
 package modgraf.jgrapht;
 
+import modgraf.jgrapht.edge.DoubleWeightedEdge;
 import modgraf.jgrapht.edge.ModgrafEdge;
 import modgraf.jgrapht.edge.WeightedEdge;
 import org.jgrapht.EdgeFactory;

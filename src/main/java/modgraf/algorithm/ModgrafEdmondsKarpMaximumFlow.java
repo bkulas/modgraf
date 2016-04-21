@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 import javax.swing.JOptionPane;
 
+import modgraf.jgrapht.DoubleWeightedGraph;
 import modgraf.jgrapht.Vertex;
 import modgraf.jgrapht.edge.ModgrafEdge;
 import modgraf.view.Editor;
@@ -35,7 +36,7 @@ public class ModgrafEdmondsKarpMaximumFlow extends ModgrafAbstractAlgorithm
 	@Override
 	public void actionPerformed(ActionEvent arg0)
 	{
-		if (editor.getGraphT() instanceof DirectedGraph && editor.getGraphT() instanceof WeightedGraph)
+		if (editor.getGraphT() instanceof DirectedGraph && (editor.getGraphT() instanceof WeightedGraph || editor.getGraphT() instanceof DoubleWeightedGraph))
 			openParamsWindow();
 		else
 			JOptionPane.showMessageDialog(editor.getGraphComponent(),
@@ -108,6 +109,10 @@ public class ModgrafEdmondsKarpMaximumFlow extends ModgrafAbstractAlgorithm
 	@Override
 	protected void findAndShowResult()
 	{
+		if (editor.getGraphT() instanceof DoubleWeightedGraph){
+			EdmondsKarpMaximumFlow<Vertex, ModgrafEdge> ekmf =
+					new EdmondsKarpMaximumFlow<>((DirectedGraph<Vertex, ModgrafEdge>) editor.getGraphT());
+		}
 		EdmondsKarpMaximumFlow<Vertex, ModgrafEdge> ekmf = 
 				new EdmondsKarpMaximumFlow<>((DirectedGraph<Vertex, ModgrafEdge>) editor.getGraphT());
 		ekmf.calculateMaximumFlow(startVertex, endVertex);

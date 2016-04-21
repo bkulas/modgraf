@@ -57,6 +57,11 @@ public class ActionGenerateGraph implements ActionListener
 		lang = editor.getLanguage();
 	}
 
+	/**
+	 * Metoda (w razie potrzeby) wyświetla okno z informacją o istnieniu niezapisanych
+	 * zmian, a następnie okno z wyborem pliku do wczytania.<br>
+	 * Metoda jest wywoływana z menu <i>Plik --> Otwórz<i>.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
