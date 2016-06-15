@@ -1,5 +1,6 @@
 package modgraf.event;
 
+import java.awt.event.MouseEvent;
 import java.util.Map;
 import java.util.Properties;
 
@@ -96,6 +97,8 @@ public class EventAddCellsListener implements mxIEventListener
 				System.out.print(cell.getSource().getId());
 				System.out.println(".");
 
+//				MouseEvent
+
 				mxGraph graph = editor.getGraphComponent().getGraph();
 				Properties prop = editor.getProperties();
 				int width = Integer.parseInt(prop.getProperty("default-vertex-width"));
@@ -108,6 +111,12 @@ public class EventAddCellsListener implements mxIEventListener
 						vertexPosition, vertexPosition, width, height, "vertexStyle"));
 
 			}
+
+			System.out.print("target ");
+				System.out.print(cell.getTarget().getId());
+			System.out.print(" source ");
+			System.out.print(cell.getSource().getId());
+			System.out.println(".");
 
 			Vertex target = vertices.get(cell.getTarget().getId());
 			ModgrafEdge e = graphT.addEdge(source, target);

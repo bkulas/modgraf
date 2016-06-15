@@ -325,7 +325,7 @@ public class Editor
 	public mxGraph createNewMxGraph()
 	{
 		mxGraph graph = new mxGraph();
-		graph.setAllowDanglingEdges(true);
+		graph.setAllowDanglingEdges(false);
 		graph.setEdgeLabelsMovable(true);
 		graph.addListener(mxEvent.CELLS_ADDED, new EventAddCellsListener(this));
 		graph.addListener(mxEvent.REMOVE_CELLS, new EventRemoveCellsListener(this));
