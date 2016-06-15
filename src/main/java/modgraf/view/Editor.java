@@ -325,12 +325,13 @@ public class Editor
 	public mxGraph createNewMxGraph()
 	{
 		mxGraph graph = new mxGraph();
-		graph.setAllowDanglingEdges(false);
+		graph.setAllowDanglingEdges(true);
 		graph.setEdgeLabelsMovable(true);
 		graph.addListener(mxEvent.CELLS_ADDED, new EventAddCellsListener(this));
 		graph.addListener(mxEvent.REMOVE_CELLS, new EventRemoveCellsListener(this));
 		graph.addListener(mxEvent.CONNECT_CELL, new EventConnectCellListener(this));
 		graph.addListener(mxEvent.SPLIT_EDGE, new EventSplitEdgeListener(this));
+//		graph.addListener(mxEvent.ADD_CELLS, new EventAddCellsListener(this));
 		graph.getModel().addListener(mxEvent.CHANGE, new mxIEventListener()
 		{
 			public void invoke(Object source, mxEventObject evt)
@@ -359,6 +360,8 @@ public class Editor
 		edgeStyle.put(mxConstants.STYLE_STROKECOLOR, properties.getProperty("default-edge-color"));
 		edgeStyle.put(mxConstants.STYLE_FONTSIZE, properties.getProperty("default-edge-font-size"));
 		edgeStyle.put(mxConstants.STYLE_FONTCOLOR, properties.getProperty("default-edge-font-color"));
+		edgeStyle.put(mxConstants.STYLE_VERTICAL_ALIGN, "top");
+		edgeStyle.put(mxConstants.STYLE_ALIGN, "top");
 		if (graphT instanceof DirectedGraph)
 			edgeStyle.put(mxConstants.STYLE_ENDARROW, mxConstants.ARROW_CLASSIC);
 		else

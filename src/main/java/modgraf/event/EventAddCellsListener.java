@@ -10,6 +10,7 @@ import modgraf.jgrapht.Vertex;
 import modgraf.jgrapht.edge.DoubleWeightedEdge;
 import modgraf.jgrapht.edge.ModgrafEdge;
 import modgraf.view.Editor;
+import modgraf.action.*;
 
 import org.jgrapht.Graph;
 import org.jgrapht.UndirectedGraph;
@@ -63,12 +64,14 @@ public class EventAddCellsListener implements mxIEventListener
 				{
 					mxCell cell = (mxCell)cells[i];
 					addCellToGraphT(cell);
+//					addCellToGraphT(cell, evt);
 				}
 			}
 		}
 	}
 
 	private void addCellToGraphT(mxCell cell)
+//	private void addCellToGraphT(mxCell cell, mxEventObject event)
 	{
 		Graph<Vertex, ModgrafEdge> graphT = editor.getGraphT();
 		Map<String, Vertex> vertices = editor.getVertices();
@@ -82,6 +85,30 @@ public class EventAddCellsListener implements mxIEventListener
 		if (cell.isEdge())
 		{
 			Vertex source = vertices.get(cell.getSource().getId());
+
+			//każde dodanie krawedzi dodaje nowy wierzcholek w położeniu początkowym
+			//sprawdzić czy rowniez w warstwie logicznej - chyba tak (można dodac krawedz do tego wierzcholka)
+			//nalezy użyc funkcji z ActionAddVertexWithPosition
+			if (cell.getTarget() == null){
+				System.out.print("target ");
+//				System.out.print(cell.getTarget().getId());
+				System.out.print(" source ");
+				System.out.print(cell.getSource().getId());
+				System.out.println(".");
+
+				mxGraph graph = editor.getGraphComponent().getGraph();
+				Properties prop = editor.getProperties();
+				int width = Integer.parseInt(prop.getProperty("default-vertex-width"));
+				int height = Integer.parseInt(prop.getProperty("default-vertex-height"));
+				Object parent = graph.getDefaultParent();
+				int vertexPosition = editor.getVertexCounter() * 5;
+//				graph.insertVertex(parent, null, editor.incrementAndGetNewVertexCounter(),
+//						vertexPosition, vertexPosition, width, height, "vertexStyle");
+				cell.setTarget((mxCell)graph.insertVertex(parent, null, editor.incrementAndGetNewVertexCounter(),
+						vertexPosition, vertexPosition, width, height, "vertexStyle"));
+
+			}
+
 			Vertex target = vertices.get(cell.getTarget().getId());
 			ModgrafEdge e = graphT.addEdge(source, target);
 			if (e != null)

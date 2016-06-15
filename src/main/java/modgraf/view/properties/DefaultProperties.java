@@ -54,7 +54,7 @@ public class DefaultProperties
 		prop.setProperty("default-edge-capacity", "1.0");
 		prop.setProperty("default-edge-cost", "1.0");
 		prop.setProperty("default-edge-font-size", "14");
-		prop.setProperty("default-edge-font-color", "#446299");
+		prop.setProperty("default-edge-font-color", "#000000"); //wcześniej #446299
 		return prop;
 	}
 	
