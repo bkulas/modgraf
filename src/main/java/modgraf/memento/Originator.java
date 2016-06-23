@@ -11,6 +11,7 @@ public class Originator {
     public Originator(String state) {
         super();
         this.state = state;
+        System.out.println(state);
     }
 
     public void setState(String state) {
@@ -29,11 +30,15 @@ public class Originator {
         this.state = memento.getState();
     }
 
-    public void undo(Memento memento){
-        this.state = memento.getState();
+    public void undo(Caretaker ct){
+        restoreMemento(ct.undo());
+        //this.state = ct.undo().getState();
+        System.out.println(state);
     }
 
-    public void redo(Memento memento){
-        this.state = memento.getState();
+    public void redo(Caretaker ct){
+        restoreMemento(ct.redo());
+        //this.state = ct.redo().getState();
+        System.out.println(state);
     }
 }

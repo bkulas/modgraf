@@ -13,6 +13,9 @@ import modgraf.action.ActionSave;
 import modgraf.event.*;
 import modgraf.jgrapht.*;
 import modgraf.jgrapht.edge.*;
+import modgraf.memento.Caretaker;
+import modgraf.memento.Originator;
+import modgraf.event.EventKeyListener;
 import modgraf.view.properties.Language;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.Graph;
@@ -20,6 +23,7 @@ import org.jgrapht.graph.SimpleDirectedGraph;
 import org.jgrapht.graph.SimpleGraph;
 
 import javax.swing.*;
+import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -63,6 +67,10 @@ public class Editor
 	private Properties properties;
 	private Properties language;
 	private AlgorithmMenuItems ami;
+	private Caretaker caretaker;
+	private Originator originator;
+	private JTextField lbl;
+	private JPanel panel;
 	
 	/**
 	 * Konstruktor. Jest wywoływany w metodzie <code>main(String[] args)
@@ -80,7 +88,20 @@ public class Editor
 		toolbar = new Toolbar(this);
 		graphT = createNewGraphT(false, 0);
 		createTextPane();
+		caretaker = new Caretaker();
+		originator = new Originator("modgraf1");
+		caretaker.addMemento(originator.createMemento());
 		createGraphComponent();
+		
+		/*originator.setState("State1");
+		System.out.println(originator.getState());
+		caretaker.addMemento(originator.createMemento());
+		originator.setState("State2");
+		System.out.println(originator.getState());
+		caretaker.addMemento(originator.createMemento());
+		originator.setState("State3");
+		System.out.println(originator.getState());
+		caretaker.addMemento(originator.createMemento());*/
 	}
 
 	private void createGraphComponent()
@@ -115,6 +136,7 @@ public class Editor
 	private void addGraphComponentListeners()
 	{
 		graphComponent.addListener(mxEvent.LABEL_CHANGED, new EventLabelChangedListener(this));
+		graphComponent.addKeyListener(new EventKeyListener(this));
 		graphComponent.getGraphControl().addMouseListener(new MouseAdapter()
 		{
 			@Override
@@ -295,7 +317,15 @@ public class Editor
 	{
 		menuBar.addAlgorithm(name, algorithm, both, any);
 	}
-	
+
+	public Originator getOriginator(){
+		return originator;
+	}
+
+	public Caretaker getCaretaker(){
+		return caretaker;
+	}
+
 	/**
 	 * Metoda tworzy i wyświetla główne okno programu. Jest wywoływana w metodzie <code>main 
 	 * (String[] args)</code> klasy <code>Main</code>.
@@ -308,6 +338,7 @@ public class Editor
 		frame.add(toolbar, BorderLayout.NORTH);
 		Dimension minimumSize = new Dimension(100, 100);
 		graphComponent.setMinimumSize(minimumSize);
+		//graphComponent.addKeyListener(new EventKeyListener(this));
 		JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, graphComponent, new JScrollPane(textPane));
 		splitPane.setOneTouchExpandable(true);
 		frame.add(splitPane, BorderLayout.CENTER);
@@ -316,6 +347,7 @@ public class Editor
 		frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
 		frame.addWindowListener(new ActionSave(this));
 		updateTitle();
+
 		frame.setVisible(true);
 	}
 	

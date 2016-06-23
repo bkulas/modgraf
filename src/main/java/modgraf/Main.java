@@ -34,8 +34,8 @@ public class Main
 		if (editor.getProperties().getProperty("show-new-graph-window-on-startup").equals("true"))
 			new ActionNewGraph(editor).actionPerformed(null);
 
-		Caretaker caretaker = new Caretaker();
-		Originator originator = new Originator("modgraf1");
+		/*Caretaker caretaker = editor.getCaretaker();
+		Originator originator = editor.getOriginator();
 
 		//Test of undo/redo mechanism
 		originator.setState("State1");
@@ -52,7 +52,7 @@ public class Main
 		System.out.println("koniec");
 
 		caretaker.addMemento(originator.createMemento());
-		originator.undo(caretaker.undo());
+		originator.undo(caretaker);
 
 		for(int i=0; i<caretaker.getSize(); i++) {
 			System.out.println(caretaker.getMemento(i).getState());
@@ -69,31 +69,31 @@ public class Main
 
 		System.out.println("stan "+originator.getState());
 
-		originator.undo(caretaker.undo());
-		originator.undo(caretaker.undo());
+		originator.undo(caretaker);
+		originator.undo(caretaker);
 		System.out.println("undo undo stan "+originator.getState());
-		originator.undo(caretaker.undo());
+		originator.undo(caretaker);
 		System.out.println("undo undo undo stan "+originator.getState());
-		originator.redo(caretaker.redo());
+		originator.redo(caretaker);
 		System.out.println("redo stan "+originator.getState());
-		originator.redo(caretaker.redo());
+		originator.redo(caretaker);
 		System.out.println("redo stan "+originator.getState());
-		originator.redo(caretaker.redo());
+		originator.redo(caretaker);
 		System.out.println("redo stan "+originator.getState());
 		originator.setState("State6");
 		caretaker.addMemento(originator.createMemento());
 		System.out.println("stan "+originator.getState());
-		originator.redo(caretaker.redo());
+		originator.redo(caretaker);
 		System.out.println("redo stan "+originator.getState());
-		originator.undo(caretaker.undo());
+		originator.undo(caretaker);
 		System.out.println("undo stan "+originator.getState());
-		originator.redo(caretaker.redo());
+		originator.redo(caretaker);
 		System.out.println("redo stan "+originator.getState());
 
 		for(int i=0; i<caretaker.getSize(); i++) {
 			System.out.println(caretaker.getMemento(i).getState());
-		}
-		
+		}*/
+
 
 	}
 }
