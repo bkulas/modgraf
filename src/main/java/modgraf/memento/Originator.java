@@ -7,38 +7,52 @@ package modgraf.memento;
  */
 public class Originator {
     private String state;
+    private Caretaker caretaker;
+    private int number = 0;
 
     public Originator(String state) {
         super();
         this.state = state;
-        System.out.println(state);
+        this.caretaker = new Caretaker();
+        caretaker.addMemento(createMemento());
+        System.out.println(number);
     }
 
     public void setState(String state) {
         this.state = state;
+        caretaker.addMemento(createMemento());
     }
 
     public String getState() {
         return state;
     }
 
+    public int getNumber() {
+        return number;
+    }
+
+    public Caretaker getCaretaker() {
+        return caretaker;
+    }
+
     public Memento createMemento(){
-        return new Memento(this.state);
+        return new Memento(++number, this.state);
     }
 
     public void restoreMemento(Memento memento){
         this.state = memento.getState();
+        this.number = memento.getNumber();
     }
 
-    public void undo(Caretaker ct){
-        restoreMemento(ct.undo());
+    public void undo(){
+        restoreMemento(caretaker.undo());
         //this.state = ct.undo().getState();
-        System.out.println(state);
+        System.out.println(number);
     }
 
-    public void redo(Caretaker ct){
-        restoreMemento(ct.redo());
+    public void redo(){
+        restoreMemento(caretaker.redo());
         //this.state = ct.redo().getState();
-        System.out.println(state);
+        System.out.println(number);
     }
 }

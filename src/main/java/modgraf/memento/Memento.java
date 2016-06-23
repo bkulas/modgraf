@@ -6,11 +6,17 @@ package modgraf.memento;
  * @author Barbara Kulas
  */
 public class Memento {
+    private final int number;
     private final String state;
 
-    public Memento(String state) {
+    public Memento(int number, String state) {
         super();
+        this.number = number;
         this.state = state;
+    }
+
+    public int getNumber() {
+        return number;
     }
 
     public String getState() {

@@ -32,58 +32,23 @@ public class EventKeyListener extends JFrame implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent kevt){
-        //System.out.println("keyPressed");
-
-        if ((kevt.getKeyCode() == KeyEvent.VK_C) && ((kevt.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
-            System.out.println("woot!");
-        }
-       /* if(kevt.getKeyChar()=='z') {
-            if (kevt.isControlDown()) {
-                origin.undo(care);
-                System.out.println("UNDO");
-            }
-        }
-        if(kevt.getKeyChar()=='y') {
-            if (kevt.isControlDown()) {
-                origin.redo(care);
-                System.out.println("REDO");
-            }
-        }*/
-
-        //test
-        //System.out.println("redo stan "+origin.getState());
-        //for(int i=0; i<care.getSize(); i++) {
-        //    System.out.println(care.getMemento(i).getState());
-        //}
     }
 
     @Override
     public void keyReleased(KeyEvent kevt) {
-        System.out.println("keyReleased");
+        //System.out.println("keyReleased");
 
         if ((kevt.getKeyCode() == KeyEvent.VK_Z) && ((kevt.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
             System.out.println("woot! Z");
-            origin.undo(care);
+            origin.undo();
             System.out.println("UNDO");
         }
 
-        /*if(kevt.getKeyChar()=='z') {
-            if (kevt.isControlDown()) {
-                origin.undo(care);
-                System.out.println("UNDO");
-            }
-        }*/
         if ((kevt.getKeyCode() == KeyEvent.VK_Y) && ((kevt.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
             System.out.println("woot! Y");
-            origin.redo(care);
+            origin.redo();
             System.out.println("REDO");
         }
-        /*if(kevt.getKeyChar()=='y') {
-            if (kevt.isControlDown()) {
-                origin.redo(care);
-                System.out.println("REDO");
-            }
-        }*/
     }
 
     @Override

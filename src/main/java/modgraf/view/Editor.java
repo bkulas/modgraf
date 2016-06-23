@@ -88,20 +88,88 @@ public class Editor
 		toolbar = new Toolbar(this);
 		graphT = createNewGraphT(false, 0);
 		createTextPane();
-		caretaker = new Caretaker();
 		originator = new Originator("modgraf1");
-		caretaker.addMemento(originator.createMemento());
 		createGraphComponent();
-		
+
+		//test undo/redo 1
 		/*originator.setState("State1");
+		System.out.println(originator.getNumber());
 		System.out.println(originator.getState());
-		caretaker.addMemento(originator.createMemento());
 		originator.setState("State2");
+		System.out.println(originator.getNumber());
 		System.out.println(originator.getState());
-		caretaker.addMemento(originator.createMemento());
 		originator.setState("State3");
-		System.out.println(originator.getState());
-		caretaker.addMemento(originator.createMemento());*/
+		System.out.println(originator.getNumber());
+		System.out.println(originator.getState());*/
+
+		//test undo/redo 2
+		/*originator.setState("State1");
+		originator.setState("State2");
+		originator.setState("State3");
+		originator.setState("State4");
+
+		for(int i=0; i<originator.getCaretaker().getSize(); i++) {
+			System.out.println(originator.getCaretaker().getMemento(i).getNumber());
+			System.out.println(originator.getCaretaker().getMemento(i).getState());
+		}
+
+		System.out.println("koniec");
+
+		originator.undo();
+		originator.undo();
+
+		for(int i=0; i<originator.getCaretaker().getSize(); i++) {
+			System.out.println(originator.getCaretaker().getMemento(i).getNumber());
+			System.out.println(originator.getCaretaker().getMemento(i).getState());
+		}
+
+		System.out.println(originator.getNumber());
+		System.out.println("stan "+originator.getState());
+
+		originator.setState("State5");
+
+		for(int i=0; i<originator.getCaretaker().getSize(); i++) {
+			System.out.println(originator.getCaretaker().getMemento(i).getNumber());
+			System.out.println(originator.getCaretaker().getMemento(i).getState());
+		}
+
+		System.out.println(originator.getNumber());
+		System.out.println("stan "+originator.getState());
+
+		originator.undo();
+		originator.undo();
+		System.out.println(originator.getNumber());
+		System.out.println("undo undo stan "+originator.getState());
+		originator.undo();
+		System.out.println(originator.getNumber());
+		System.out.println("undo undo undo stan "+originator.getState());
+		originator.redo();
+		System.out.println(originator.getNumber());
+		System.out.println("redo stan "+originator.getState());
+		originator.redo();
+		System.out.println(originator.getNumber());
+		System.out.println("redo stan "+originator.getState());
+		originator.redo();
+		System.out.println(originator.getNumber());
+		System.out.println("redo stan "+originator.getState());
+		originator.setState("State6");
+		System.out.println(originator.getNumber());
+		System.out.println("stan "+originator.getState());
+		originator.redo();
+		System.out.println(originator.getNumber());
+		System.out.println("redo stan "+originator.getState());
+		originator.undo();
+		System.out.println(originator.getNumber());
+		System.out.println("undo stan "+originator.getState());
+		originator.redo();
+		System.out.println(originator.getNumber());
+		System.out.println("redo stan "+originator.getState());
+
+		for(int i=0; i<originator.getCaretaker().getSize(); i++) {
+			System.out.println(originator.getCaretaker().getMemento(i).getNumber());
+			System.out.println(originator.getCaretaker().getMemento(i).getState());
+		}*/
+
 	}
 
 	private void createGraphComponent()
