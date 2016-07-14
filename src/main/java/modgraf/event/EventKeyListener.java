@@ -27,7 +27,6 @@ public class EventKeyListener extends JFrame implements KeyListener {
         editor = e;
         prop = e.getProperties();
         origin = e.getOriginator();
-        care = e.getCaretaker();
     }
 
     @Override

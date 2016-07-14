@@ -59,6 +59,8 @@ public class PopupMenu extends JPopupMenu
 			{
                 add(createMenuItem("menu-vertex-delete", 	new ActionRemoveSelected(editor), 	"icons/minus.png", 	"DELETE"));
 				addSeparator();
+				add(createMenuItem("menu-show-properties", 		new ActionShowProperties(editor)));
+				addSeparator();
 				add(createMenuItem("frame-change-name", 		new ActionChangeName(editor)));
 				add(createMenuItem("menu-vertex-fill-color", new ActionSetColor(editor, STYLE_FILLCOLOR, "frame-select-fill-color", true)));
 				add(createMenuSize());
@@ -69,6 +71,8 @@ public class PopupMenu extends JPopupMenu
 			else
 			{
 				add(createMenuItem("menu-edge-delete", 		new ActionRemoveSelected(editor), 	"icons/minus.png", 	"DELETE"));
+				addSeparator();
+				add(createMenuItem("menu-show-properties", 		new ActionShowProperties(editor)));
 				addSeparator();
 				add(createMenuItem("frame-change-weight", new ActionChangeName(editor)));
 				add(createMenuItem("menu-edge-width",	new ActionSetIntegerValueStyle(editor, STYLE_STROKEWIDTH, "frame-change-line-width", BORDER_MINIMUM_WIDTH, BORDER_MAXIMUM_WIDTH, false)));

@@ -1,11 +1,11 @@
 package modgraf.view;
 
 import com.mxgraph.swing.mxGraphComponent;
-import com.mxgraph.util.mxConstants;
+import com.mxgraph.swing.util.mxGraphActions;
+import java.awt.event.ActionEvent;
 import com.mxgraph.util.mxEvent;
-import com.mxgraph.util.mxEventObject;
+import com.mxgraph.util.*;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
-import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxStylesheet;
 import modgraf.Main;
@@ -67,7 +67,6 @@ public class Editor
 	private Properties properties;
 	private Properties language;
 	private AlgorithmMenuItems ami;
-	private Caretaker caretaker;
 	private Originator originator;
 	private JTextField lbl;
 	private JPanel panel;
@@ -85,11 +84,13 @@ public class Editor
 			language = createDefaultLanguage();
 		ami = new AlgorithmMenuItems();
 		menuBar = new MenuBar(this, ami);
-		toolbar = new Toolbar(this);
 		graphT = createNewGraphT(false, 0);
 		createTextPane();
 		originator = new Originator("modgraf1");
 		createGraphComponent();
+		toolbar = new Toolbar(this);
+
+
 
 		//test undo/redo 1
 		/*originator.setState("State1");
@@ -390,10 +391,6 @@ public class Editor
 		return originator;
 	}
 
-	public Caretaker getCaretaker(){
-		return caretaker;
-	}
-
 	/**
 	 * Metoda tworzy i wyświetla główne okno programu. Jest wywoływana w metodzie <code>main 
 	 * (String[] args)</code> klasy <code>Main</code>.
@@ -425,8 +422,9 @@ public class Editor
 	public mxGraph createNewMxGraph()
 	{
 		mxGraph graph = new mxGraph();
-		graph.setAllowDanglingEdges(false);
+		graph.setAllowDanglingEdges(true);
 		graph.setEdgeLabelsMovable(true);
+//		graph.setMinimumGraphSize(new mxRectangle(1,1, 252, 252));
 		graph.addListener(mxEvent.CELLS_ADDED, new EventAddCellsListener(this));
 		graph.addListener(mxEvent.REMOVE_CELLS, new EventRemoveCellsListener(this));
 		graph.addListener(mxEvent.CONNECT_CELL, new EventConnectCellListener(this));

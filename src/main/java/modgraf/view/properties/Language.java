@@ -61,6 +61,9 @@ public class Language
         lang.setProperty("menu-edge-width", "Grubość");
         lang.setProperty("menu-edge-color", "Kolor");
 
+		lang.setProperty("menu-show-properties", "Właściwości");
+		lang.setProperty("properties", "Właściwości");
+
 		lang.setProperty("menu-algorithm", "Algorytmy");
 		lang.setProperty("menu-algorithm-add", "Dodaj nowy algorytm");
 		
@@ -346,6 +349,9 @@ public class Language
         lang.setProperty("menu-edge-delete", "Delete selected");
         lang.setProperty("menu-edge-width", "Width");
         lang.setProperty("menu-edge-color", "Color");
+
+		lang.setProperty("menu-show-properties", "Properties");
+		lang.setProperty("properties", "Properties");
 
 		lang.setProperty("menu-algorithm", "Algorithms");
 		lang.setProperty("menu-algorithm-add", "Add new algorithm");
