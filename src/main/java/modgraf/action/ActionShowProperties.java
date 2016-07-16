@@ -4,6 +4,7 @@ import com.mxgraph.model.mxCell;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import modgraf.event.EventLabelChangedListener;
+import modgraf.jgrapht.edge.ModgrafEdge;
 import modgraf.view.Editor;
 import modgraf.jgrapht.Vertex;
 
@@ -67,6 +68,7 @@ public class ActionShowProperties implements ActionListener
         String message = null;
         String title = null;
 
+        JPanel p = new JPanel();
 
         //kombinowania TO CHANGE
         if (cell.isVertex())
@@ -74,42 +76,90 @@ public class ActionShowProperties implements ActionListener
             Map<String, Vertex> vertices = editor.getVertices();
 
             Vertex v = vertices.get(cell.getId());
-            String[] labels = {"ID: "+cell.getId(), "Nazwa: ", "Email: ", "Address: "};
-            int numPairs = labels.length;
 
-            JPanel p = new JPanel();
+            //SpringLayout layout = new SpringLayout();
 
-//        for (int i = 0; i < numPairs; i++) {
-            JLabel l = new JLabel(labels[0]);
-            p.add(l);
-            JTextField textField = new JTextField(10);
-            l.setLabelFor(textField);
-            //textField.setText(cell.getId());
-            p.add(textField);
+            //p.setLayout(layout);
 
-            JLabel l2 = new JLabel(labels[1]);
-            p.add(l2);
-            JTextField textField2 = new JTextField(10);
-            textField2.setText(v.getName());
-            l.setLabelFor(textField2);
+            JLabel id = new JLabel("ID: "+cell.getId());
+            p.add(id);
 
-            p.add(textField2);
-            //       }
+            JLabel name = new JLabel("Nazwa: ");
+            p.add(name);
+            JTextField name_field = new JTextField(10);
+            name_field.setText(v.getName());
+            name.setLabelFor(name_field);
+            p.add(name_field);
 
 
 
-            String value = (String) JOptionPane.showInputDialog(editor.getGraphComponent(), p,
-                    lang.getProperty("properties"), JOptionPane.PLAIN_MESSAGE, null, null, cell.getValue());
-            String value1 = textField.getText();
-            String value2 = textField2.getText();
-            cell.setValue(value2);
-            v.setName(value2);
+            JOptionPane.showMessageDialog(editor.getGraphComponent(), p,
+                    lang.getProperty("properties"), JOptionPane.PLAIN_MESSAGE);
+            String new_name = name_field.getText();
 
-            System.out.println(value+" "+value1+" "+value2);
+            if(!new_name.equals(v.getName())) {
+                System.out.println("Zmieniono nazwę");
+                cell.setValue(new_name);
+                v.setName(new_name);
+            }
+
+            System.out.println("new: "+new_name);
 
             editor.getGraphComponent().refresh();
 
-            //cell.setId(value1);
+        }
+        if (cell.isEdge())
+        {
+            Map<String, ModgrafEdge> edges = editor.getEdges();
+
+            ModgrafEdge e = edges.get(cell.getId());
+
+            JLabel id = new JLabel("ID: "+cell.getId());
+            p.add(id);
+
+            JLabel source = new JLabel("Źródło: ");
+            p.add(source);
+            JTextField source_field = new JTextField(10);
+            source_field.setText(cell.getSource().getId());
+            source.setLabelFor(source_field);
+            p.add(source_field);
+
+            JLabel target = new JLabel("Cel: ");
+            p.add(target);
+            JTextField target_field = new JTextField(10);
+            target_field.setText(cell.getTarget().getId());
+            target.setLabelFor(target_field);
+            p.add(target_field);
+
+            JLabel flow = new JLabel("Przepływ: "+cell.getValue());
+            p.add(flow);
+
+            JOptionPane.showMessageDialog(editor.getGraphComponent(), p,
+                    lang.getProperty("properties"), JOptionPane.PLAIN_MESSAGE);
+            String new_source = source_field.getText();
+            String new_target = target_field.getText();
+
+            //nie działa jeszcze
+            if(!new_source.equals(e.getSource().getName())) {
+                System.out.println("Nie równe " + new_source);
+                String key = "-1";
+                for (Map.Entry<String, ModgrafEdge> entry : edges.entrySet()) {
+                    if (new_source.equals(entry.getValue())) {
+                        key = entry.getKey();
+                        System.out.println("Znaleziono klucz " + key);
+
+                    }
+                }
+
+                if (edges.get(key) != null)
+                    System.out.println("Zmieniono źródło" + new_source);
+                //cell.setValue(new_name);
+                //e.setName(new_name);
+            }
+
+            System.out.println("source: "+new_source);
+
+            editor.getGraphComponent().refresh();
         }
         else {
             message = lang.getProperty("message-new-edge-name");
