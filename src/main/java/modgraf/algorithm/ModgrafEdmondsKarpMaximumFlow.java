@@ -96,6 +96,7 @@ public class ModgrafEdmondsKarpMaximumFlow extends ModgrafAbstractAlgorithm
 			if (flow > 0)
 			{
 				ModgrafEdge edge = entry.getKey();
+				String id = entry.getKey().getId();
 				double capacity =  graphT.getEdgeWeight(edge);
 				if (flow == capacity)
 					changeEdgeStrokeWidth(edge, width);

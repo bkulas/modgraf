@@ -11,11 +11,17 @@ import modgraf.view.Editor;
 import modgraf.jgrapht.Vertex;
 
 import javax.swing.*;
+import javax.swing.Icon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
 import java.util.Properties;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.jgrapht.Graph;
+import org.jgrapht.UndirectedGraph;
+import org.jgrapht.WeightedGraph;
 
 /**
  * Created by Basia on 14.07.2016.
@@ -72,6 +78,9 @@ public class ActionShowProperties implements ActionListener
         JPanel p = new JPanel();
         Map<String, Vertex> vertices = editor.getVertices();
         Map<String, ModgrafEdge> edges = editor.getEdges();
+        Graph<Vertex, ModgrafEdge> gt = editor.getGraphT();
+
+        //System.out.println(gt.get)
 
         if (cell.isVertex())
         {
@@ -111,7 +120,7 @@ public class ActionShowProperties implements ActionListener
         {
             ModgrafEdge e = edges.get(cell.getId());
 
-            JLabel id = new JLabel("ID: "+cell.getId());
+            JLabel id = new JLabel("ID: "+e.getId());
             p.add(id);
 
             JLabel source = new JLabel("Źródło: ");
@@ -143,6 +152,7 @@ public class ActionShowProperties implements ActionListener
             String old_target_id = e.getTarget().getId();
             String new_source_id = old_source_id;
             String new_target_id = old_target_id;
+            String e_id = e.getId();
 
             if(!new_source.equals(e.getSource().getName())) {
                 System.out.println("Nie równe " + new_source);
@@ -156,6 +166,7 @@ public class ActionShowProperties implements ActionListener
                 }
 
                 if (!key.equals("-1")){
+                    gt.removeEdge(e);
                     System.out.println("Zmieniono źródło" + new_source);
                     e.setSource(vertices.get(key));
                     mxGraphModel model = new mxGraphModel(editor.getGraphComponent().getGraph().getModel().getRoot());
@@ -163,7 +174,17 @@ public class ActionShowProperties implements ActionListener
                     System.out.println("Znaleziono celke krawedz " + ce.getId());
                     mxICell cv = (mxICell)model.getCell(key);
                     System.out.println("Znaleziono celke wierzcholek " + cv.getId());
-                    ce.setSource(cv);
+                    cell.setSource(cv);
+
+                    Vertex v_source = vertices.get(ce.getSource().getId());
+                    Vertex v_target = vertices.get(ce.getTarget().getId());
+
+                    editor.setEdgeId(new_source_id, new_target_id, e_id);
+                    gt.addEdge(v_source, v_target);
+                    e.setId(e_id);
+                    editor.getEdges().put(e_id, e);
+
+                    
                 }
 
                 else JOptionPane.showMessageDialog(editor.getGraphComponent(), "Nie ma takiego wierzchołka.",
@@ -184,6 +205,7 @@ public class ActionShowProperties implements ActionListener
                 }
 
                 if (!key.equals("-1")) {
+                    gt.removeEdge(e);
                     System.out.println("Zmieniono cel " + new_target);
                     e.setTarget(vertices.get(key));
                     mxGraphModel model = new mxGraphModel(editor.getGraphComponent().getGraph().getModel().getRoot());
@@ -191,7 +213,27 @@ public class ActionShowProperties implements ActionListener
                     System.out.println("Znaleziono celke krawedz " + ce.getId());
                     mxICell cv = (mxICell)model.getCell(key);
                     System.out.println("Znaleziono celke wierzcholek " + cv.getId());
-                    ce.setTarget(cv);
+                    cell.setTarget(cv);
+
+                    Vertex v_source = vertices.get(ce.getSource().getId());
+                    Vertex v_target = vertices.get(ce.getTarget().getId());
+
+                    editor.setEdgeId(new_source_id, new_target_id, e_id);
+                    gt.addEdge(v_source, v_target);
+                    gt.getEdgeFactory().createEdge(v_source, v_target);
+                    e.setId(e_id);
+                    editor.getEdges().put(e_id, e);
+
+                    /*Iterator e = gt.edgeSet().iterator();
+                    Iterator v = gt.vertexSet().iterator();
+                    do {
+                        System.out.println("GraphT edges: ");
+                        System.out.println(e.g);
+                    }while(e.hasNext());
+
+                    do {
+                        System.out.println("GraphT vertices: ");
+                    }while(v.hasNext());*/
                 }
                 else JOptionPane.showMessageDialog(editor.getGraphComponent(), "Nie ma takiego wierzchołka.",
                         lang.getProperty("properties"), JOptionPane.PLAIN_MESSAGE);

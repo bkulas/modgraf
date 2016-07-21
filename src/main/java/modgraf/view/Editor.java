@@ -68,8 +68,8 @@ public class Editor
 	private Properties language;
 	private AlgorithmMenuItems ami;
 	private Originator originator;
-	private JTextField lbl;
-	private JPanel panel;
+	//private JTextField lbl;
+	//private JPanel panel;
 	
 	/**
 	 * Konstruktor. Jest wywoływany w metodzie <code>main(String[] args)
@@ -232,7 +232,16 @@ public class Editor
 		textPane.setEditable(false);
 		textPane.setPreferredSize(createDimensionFromProperty("textPane-width", "textPane-height"));
 	}
-	
+
+	/**
+	 * @return Główne okno programu.
+	 */
+	public JFrame getFrame()
+	{
+		return frame;
+	}
+
+
 	/**
 	 * @return Komponent odpowiedzialny za wyświetlanie grafu.
 	 */
