@@ -1,5 +1,6 @@
 package modgraf.view;
 
+import com.mxgraph.io.mxCodec;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxGraphActions;
 import java.awt.event.ActionEvent;
@@ -10,6 +11,7 @@ import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxStylesheet;
 import modgraf.Main;
 import modgraf.action.ActionSave;
+import modgraf.action.ActionSaveAs;
 import modgraf.event.*;
 import modgraf.jgrapht.*;
 import modgraf.jgrapht.edge.*;
@@ -19,8 +21,13 @@ import modgraf.event.EventKeyListener;
 import modgraf.view.properties.Language;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.Graph;
+import org.jgrapht.UndirectedGraph;
+import org.jgrapht.WeightedGraph;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.jgrapht.graph.SimpleGraph;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import javax.swing.*;
 import javax.swing.JTextField;
@@ -86,22 +93,25 @@ public class Editor
 		menuBar = new MenuBar(this, ami);
 		graphT = createNewGraphT(false, 0);
 		createTextPane();
-		originator = new Originator("modgraf1");
+		originator = new Originator(this, "modgraf1");
 		createGraphComponent();
 		toolbar = new Toolbar(this);
 
 
 
 		//test undo/redo 1
-		/*originator.setState("State1");
+		//originator.setState("State1");
+		saveState();
 		System.out.println(originator.getNumber());
 		System.out.println(originator.getState());
-		originator.setState("State2");
+		//originator.setState("State2");
+		saveState();
 		System.out.println(originator.getNumber());
 		System.out.println(originator.getState());
-		originator.setState("State3");
+		//originator.setState("State3");
+		saveState();
 		System.out.println(originator.getNumber());
-		System.out.println(originator.getState());*/
+		System.out.println(originator.getState());
 
 		//test undo/redo 2
 		/*originator.setState("State1");
@@ -680,5 +690,52 @@ public class Editor
 		int width = Integer.parseInt(properties.getProperty(widthName));
 		int height = Integer.parseInt(properties.getProperty(heightName));
 		return new Dimension(width, height);
+	}
+
+	public void saveState(){
+		originator.setState(buildXml(graphComponent.getGraph(), graphT));
+	}
+
+	public String buildXml(mxGraph graph, Graph<Vertex, ModgrafEdge> graphT)
+	{
+		String type = null;
+		String weighted = "0";
+		//String vertexCounter = Integer.toString(vertexCounter);
+		if (graphT instanceof DirectedGraph)
+			type = "directed";
+		if (graphT instanceof UndirectedGraph)
+			type = "undirected";
+		if (graphT instanceof WeightedGraph)
+			weighted = "1";
+		if (graphT instanceof DoubleWeightedGraph)
+			weighted = "2";
+		mxCodec codec = new mxCodec();
+		Element graphModel = (Element)codec.encode(graph.getModel());
+		Element stylesheet = (Element)codec.encode(graph.getStylesheet());
+		NodeList list = stylesheet.getElementsByTagName("add");
+		for (int i = 0; i < list.getLength(); ++i)
+		{
+			Node addNode = list.item(i);
+			if (addNode.getNodeType() == Node.ELEMENT_NODE)
+			{
+				Element addElement = (Element)addNode;
+				if (addElement.hasAttribute("as"))
+				{
+					if (addElement.getAttribute("as").equals("defaultVertex"))
+					{
+						stylesheet.removeChild(addElement);
+						i = list.getLength(); //exit from loop
+					}
+				}
+			}
+		}
+		graphModel.setAttribute("type", type);
+		graphModel.setAttribute("weighted", weighted);
+		graphModel.setAttribute("vertexCounter", Integer.toString(vertexCounter));
+		String model = mxXmlUtils.getXml(graphModel);
+		String style = mxXmlUtils.getXml(stylesheet);
+		String xml = "<Modgraf>"+model+style+"</Modgraf>";
+		xml = xml.replace("><", ">\r\n<");
+		return xml;
 	}
 }

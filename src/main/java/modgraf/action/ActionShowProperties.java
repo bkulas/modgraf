@@ -167,6 +167,8 @@ public class ActionShowProperties implements ActionListener
 
                 if (!key.equals("-1")){
                     gt.removeEdge(e);
+                    editor.removeEdgeId(old_source_id, old_target_id);
+
                     System.out.println("Zmieniono źródło" + new_source);
                     e.setSource(vertices.get(key));
                     mxGraphModel model = new mxGraphModel(editor.getGraphComponent().getGraph().getModel().getRoot());
@@ -179,12 +181,12 @@ public class ActionShowProperties implements ActionListener
                     Vertex v_source = vertices.get(ce.getSource().getId());
                     Vertex v_target = vertices.get(ce.getTarget().getId());
 
+                    e.setId(e_id);
                     editor.setEdgeId(new_source_id, new_target_id, e_id);
                     gt.addEdge(v_source, v_target);
-                    e.setId(e_id);
+                    gt.getEdgeFactory().createEdge(v_source, v_target);
                     editor.getEdges().put(e_id, e);
 
-                    
                 }
 
                 else JOptionPane.showMessageDialog(editor.getGraphComponent(), "Nie ma takiego wierzchołka.",
@@ -206,6 +208,8 @@ public class ActionShowProperties implements ActionListener
 
                 if (!key.equals("-1")) {
                     gt.removeEdge(e);
+                    editor.removeEdgeId(old_source_id, old_target_id);
+
                     System.out.println("Zmieniono cel " + new_target);
                     e.setTarget(vertices.get(key));
                     mxGraphModel model = new mxGraphModel(editor.getGraphComponent().getGraph().getModel().getRoot());
@@ -218,10 +222,10 @@ public class ActionShowProperties implements ActionListener
                     Vertex v_source = vertices.get(ce.getSource().getId());
                     Vertex v_target = vertices.get(ce.getTarget().getId());
 
+                    e.setId(e_id);
                     editor.setEdgeId(new_source_id, new_target_id, e_id);
                     gt.addEdge(v_source, v_target);
                     gt.getEdgeFactory().createEdge(v_source, v_target);
-                    e.setId(e_id);
                     editor.getEdges().put(e_id, e);
 
                     /*Iterator e = gt.edgeSet().iterator();

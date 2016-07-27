@@ -1,5 +1,14 @@
 package modgraf.memento;
 
+import modgraf.view.Editor;
+import modgraf.action.ActionOpen;
+
+import com.mxgraph.util.mxXmlUtils;
+import org.w3c.dom.Document;
+
+import java.io.File;
+import java.io.IOException;
+
 /**
  * Created by Basia on 15.06.2016.
  *
@@ -9,9 +18,11 @@ public class Originator {
     private String state;
     private Caretaker caretaker;
     private int number = 0;
+    private Editor editor;
 
-    public Originator(String state) {
+    public Originator(Editor e, String state) {
         super();
+        this.editor = e;
         this.state = state;
         this.caretaker = new Caretaker();
         caretaker.addMemento(createMemento());
@@ -42,6 +53,10 @@ public class Originator {
     public void restoreMemento(Memento memento){
         this.state = memento.getState();
         this.number = memento.getNumber();
+        ActionOpen a = new ActionOpen(editor);
+        Document doc = a.buildXmlDocument(state);
+        a.createGraphTFromXmlDocument(doc);
+        a.setmxGraph(doc);
     }
 
     public void undo(){

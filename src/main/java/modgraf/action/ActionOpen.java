@@ -149,7 +149,14 @@ public class ActionOpen implements ActionListener
 		document.getDocumentElement().normalize();
 		return document;
 	}
-	
+
+	public Document buildXmlDocument(String xml)
+	{
+		Document document = mxXmlUtils.parseXml(xml);
+		document.getDocumentElement().normalize();
+		return document;
+	}
+
 	public String readFile(File selectedFile) throws IOException
 	{
 		BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -165,7 +172,7 @@ public class ActionOpen implements ActionListener
 		return sb.toString();
 	}
 	
-	private void createGraphTFromXmlDocument(Document document) 
+	public void createGraphTFromXmlDocument(Document document)
 	{
 		NodeList mxGraphModelList = document.getElementsByTagName("mxGraphModel");
 		if (mxGraphModelList != null)
@@ -250,7 +257,7 @@ public class ActionOpen implements ActionListener
 		e.setCost(cost);
 	}
 
-	private void setmxGraph(Document document) 
+	public void setmxGraph(Document document)
 	{
 		mxCodec codec = new mxCodec(document);
 		mxGraph graf = editor.getGraphComponent().getGraph();

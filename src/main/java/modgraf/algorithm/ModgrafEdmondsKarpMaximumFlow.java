@@ -69,6 +69,8 @@ public class ModgrafEdmondsKarpMaximumFlow extends ModgrafAbstractAlgorithm
 			{
 				ModgrafEdge edge = entry.getKey();
 				double capacity =  graphT.getEdgeWeight(edge);
+				sb.append(edge.getId());
+				sb.append(" - ");
 				sb.append(edge.getSource().getName());
 				sb.append(" : ");
 				sb.append(edge.getTarget().getName());

@@ -133,7 +133,7 @@ public class ActionSaveAs implements ActionListener
 		return writeTextFile(fileName, xml);
 	}
 	
-	private String buildXml(mxGraph graph, Graph<Vertex, ModgrafEdge> graphT)
+	public String buildXml(mxGraph graph, Graph<Vertex, ModgrafEdge> graphT)
 	{
 		String type = null;
 		String weighted = "0";
@@ -175,7 +175,7 @@ public class ActionSaveAs implements ActionListener
 		xml = xml.replace("><", ">\r\n<");
 		return xml;
 	}
-	
+
 	private File writeTextFile(String fileName, String contents)
 	{
 		try 
