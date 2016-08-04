@@ -33,7 +33,9 @@ public class ActionSetColor extends ActionSetStyle implements ActionListener
 	{
 		Color newColor = JColorChooser.showDialog(editor.getGraphComponent(),
 				editor.getLanguage().getProperty(frameName), null);
-		if (newColor != null)
+		if (newColor != null) {
 			setStyle(mxUtils.hexString(newColor));
+			editor.saveState("Zmien kolor");
+		}
 	}
 }

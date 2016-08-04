@@ -51,6 +51,7 @@ public class ActionSetSize implements ActionListener
 		else
 			setSizeForAllVertex();
 		editor.getGraphComponent().refresh();
+		editor.saveState("Zmien rozmiar");
 	}
 
 	private void setSizeForSelectedVertex()

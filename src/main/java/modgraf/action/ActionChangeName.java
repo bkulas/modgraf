@@ -69,5 +69,6 @@ public class ActionChangeName implements ActionListener
 				editor.getGraphComponent().refresh();
 			}
 		}
+		//editor.saveState("Zmien nazwe");
 	}
 }

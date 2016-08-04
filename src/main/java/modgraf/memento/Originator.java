@@ -1,5 +1,6 @@
 package modgraf.memento;
 
+import modgraf.action.ActionSaveAs;
 import modgraf.view.Editor;
 import modgraf.action.ActionOpen;
 
@@ -16,22 +17,28 @@ import java.io.IOException;
  */
 public class Originator {
     private String state;
+    private String name;
     private Caretaker caretaker;
     private int number = 0;
     private Editor editor;
 
-    public Originator(Editor e, String state) {
+    public Originator(Editor e, String name) {
         super();
         this.editor = e;
-        this.state = state;
+        this.name = name;
+        ActionSaveAs a = new ActionSaveAs(editor);
+        this.state = a.buildXml(editor.getGraphComponent().getGraph(), editor.getGraphT());
         this.caretaker = new Caretaker();
         caretaker.addMemento(createMemento());
         System.out.println(number);
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setState(String name) {
+        this.name = name;
+        ActionSaveAs a = new ActionSaveAs(editor);
+        this.state = a.buildXml(editor.getGraphComponent().getGraph(), editor.getGraphT());
         caretaker.addMemento(createMemento());
+        System.out.println("Stworzono pamiatke: "+name);
     }
 
     public String getState() {
@@ -42,21 +49,27 @@ public class Originator {
         return number;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public Caretaker getCaretaker() {
         return caretaker;
     }
 
     public Memento createMemento(){
-        return new Memento(++number, this.state);
+        return new Memento(++number, this.state, this.name);
     }
 
     public void restoreMemento(Memento memento){
         this.state = memento.getState();
         this.number = memento.getNumber();
-        ActionOpen a = new ActionOpen(editor);
+        this.name = memento.getName();
+        ActionOpen a = new ActionOpen(editor, true);
         Document doc = a.buildXmlDocument(state);
         a.createGraphTFromXmlDocument(doc);
         a.setmxGraph(doc);
+        System.out.println("Memento restored: "+name);
     }
 
     public void undo(){

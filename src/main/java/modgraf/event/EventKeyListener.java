@@ -48,6 +48,7 @@ public class EventKeyListener extends JFrame implements KeyListener {
             origin.redo();
             System.out.println("REDO");
         }
+
     }
 
     @Override

@@ -35,22 +35,23 @@ public class ActionSetFontFamily extends ActionSetStyle implements ActionListene
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent arg0) 
-	{
+	public void actionPerformed(ActionEvent arg0) {
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		List<String> fonts = new ArrayList<>();
 		fonts.addAll(Arrays.asList("Helvetica", "Verdana",
-                "Times New Roman", "Garamond", "Courier New", "Arial", "---"));
+				"Times New Roman", "Garamond", "Courier New", "Arial", "---"));
 		fonts.addAll(Arrays.asList(env.getAvailableFontFamilyNames()));
-		String newValue = (String)JOptionPane.showInputDialog(
+		String newValue = (String) JOptionPane.showInputDialog(
 				editor.getGraphComponent(),
 				null,
 				lang.getProperty("frame-select-font-family"),
 				JOptionPane.PLAIN_MESSAGE,
 				null, fonts.toArray(),
 				prop.getProperty("default-vertex-font-family"));
-		if (newValue != null)
+		if (newValue != null){
 			setStyle(newValue);
+			editor.saveState("Zmien czcionke");
+		}
 	}
 }
 

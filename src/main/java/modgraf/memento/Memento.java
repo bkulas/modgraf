@@ -8,11 +8,13 @@ package modgraf.memento;
 public class Memento {
     private final int number;
     private final String state;
+    private final String name;
 
-    public Memento(int number, String state) {
+    public Memento(int number, String state, String name) {
         super();
         this.number = number;
         this.state = state;
+        this.name = name;
     }
 
     public int getNumber() {
@@ -21,6 +23,10 @@ public class Memento {
 
     public String getState() {
         return state;
+    }
+
+    public String getName() {
+        return name;
     }
 }
 

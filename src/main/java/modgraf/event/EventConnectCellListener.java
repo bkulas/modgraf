@@ -58,6 +58,7 @@ public class EventConnectCellListener implements mxIEventListener
 			else
 				removeEdgeAndShowWarning(edge);
 		}
+		editor.saveState("Przesun krawedz");
 	}
 
 	private void removeEdgeAndShowWarning(mxCell edge)
@@ -100,11 +101,16 @@ public class EventConnectCellListener implements mxIEventListener
 	{
 		Vertex source = new Vertex(edge.getSource());
 		Vertex target = new Vertex(edge.getTarget());
-		graphT.addEdge(source, target);
+		//graphT.addEdge(source, target);
 		String id = edge.getId();
-		graphT.addEdge(source, target);
+		ModgrafEdge e = graphT.addEdge(source, target);
+		e.setId(edge.getId());
 		editor.setEdgeId(source.getId(), target.getId(), id);
 		if (graphT instanceof UndirectedGraph)
 			editor.setEdgeId(target.getId(), source.getId(), id);
+		editor.getEdges().put(edge.getId(), e);
+		//ModgrafEdge e = editor.getEdges().get(id);
+		//e.setId(id);
+		//gdzie tworzy się ta krawedz?? ModgrafEdge - znaleźć jej źródło i cel
 	}
 }

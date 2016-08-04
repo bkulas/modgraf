@@ -56,13 +56,23 @@ public class ActionSaveAs implements ActionListener
 {
 	private Editor editor;
 	private Properties lang;
+	//private boolean memento;
 	
 	public ActionSaveAs(Editor e)
 	{
 		editor = e;
 		lang = editor.getLanguage();
 	}
-	
+
+	/*
+	public ActionSaveAs(Editor e, boolean mem)
+	{
+		editor = e;
+		lang = editor.getLanguage();
+		memento = mem;
+	}
+	*/
+
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{

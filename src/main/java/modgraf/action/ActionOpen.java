@@ -40,12 +40,22 @@ public class ActionOpen implements ActionListener
 	private Editor editor;
 	private Properties lang;
 	private Properties prop;
+	private boolean memento;
 	
 	public ActionOpen(Editor e)
 	{
 		editor = e;
 		lang = editor.getLanguage();
 		prop = e.getProperties();
+		memento = false;
+	}
+
+	public ActionOpen(Editor e, boolean mem)
+	{
+		editor = e;
+		lang = editor.getLanguage();
+		prop = e.getProperties();
+		memento = mem;
 	}
 	
 	/**
@@ -203,6 +213,7 @@ public class ActionOpen implements ActionListener
 			}
 			editor.setVertexCounter(vertexCounter);
 			editor.setGraphT(graphT);
+			if (!memento)
 			editor.setTextAboutNewGraph(directed, edgeWeightDegree, true);
 		}
 	}

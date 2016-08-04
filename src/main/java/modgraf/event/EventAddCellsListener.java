@@ -66,6 +66,9 @@ public class EventAddCellsListener implements mxIEventListener
 					mxCell cell = (mxCell)cells[i];
 					addCellToGraphT(cell);
 //					addCellToGraphT(cell, evt);
+					if(cell.isVertex())
+						editor.saveState("Dodaj wierzcholek");
+					else editor.saveState("Dodaj krawedz");
 				}
 			}
 		}
@@ -90,7 +93,7 @@ public class EventAddCellsListener implements mxIEventListener
 			//każde dodanie krawedzi dodaje nowy wierzcholek w położeniu początkowym
 			//sprawdzić czy rowniez w warstwie logicznej - chyba tak (można dodac krawedz do tego wierzcholka)
 			//nalezy użyc funkcji z ActionAddVertexWithPosition
-			/*if (cell.getTarget() == null){
+			if (cell.getTarget() == null){
 				System.out.print("target ");
 //				System.out.print(cell.getTarget().getId());
 				System.out.print(" source ");
@@ -116,7 +119,7 @@ public class EventAddCellsListener implements mxIEventListener
 				System.out.print(cell.getTarget().getId());
 			System.out.print(" source ");
 			System.out.print(cell.getSource().getId());
-			System.out.println(".");*/
+			System.out.println(".");
 
 			Vertex target = vertices.get(cell.getTarget().getId());
 			ModgrafEdge e = graphT.addEdge(source, target);

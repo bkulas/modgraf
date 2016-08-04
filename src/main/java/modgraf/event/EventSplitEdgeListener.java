@@ -51,5 +51,6 @@ public class EventSplitEdgeListener implements mxIEventListener
 			editor.removeEdgeId(edge.getTarget().getId(), newEdge.getSource().getId());
 			editor.setEdgeId(edge.getTarget().getId(), edge.getSource().getId(), edge.getId());
 		}
+		editor.saveState("Dodaj wierzcholek");
 	}
 }

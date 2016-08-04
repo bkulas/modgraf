@@ -73,6 +73,7 @@ public class EventLabelChangedListener extends LabelChangedUtils implements mxIE
 			if (checkIfValueIsReallyChanged(cell))
 				changeValueForVertex(cell);
 		}
+		editor.saveState("Edytuj zmien nazwe");
 	}
 
 	private boolean checkIfValueIsReallyChanged(mxCell cell)

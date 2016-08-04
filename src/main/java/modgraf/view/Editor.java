@@ -93,25 +93,27 @@ public class Editor
 		menuBar = new MenuBar(this, ami);
 		graphT = createNewGraphT(false, 0);
 		createTextPane();
-		originator = new Originator(this, "modgraf1");
 		createGraphComponent();
 		toolbar = new Toolbar(this);
 
 
-
 		//test undo/redo 1
 		//originator.setState("State1");
-		saveState();
+		/*saveState("nazwa 1");
 		System.out.println(originator.getNumber());
 		System.out.println(originator.getState());
 		//originator.setState("State2");
-		saveState();
+		saveState("nazwa 2");
 		System.out.println(originator.getNumber());
 		System.out.println(originator.getState());
 		//originator.setState("State3");
-		saveState();
+		saveState("nazwa 3");
 		System.out.println(originator.getNumber());
 		System.out.println(originator.getState());
+
+		undo();
+		redo();
+		*/
 
 		//test undo/redo 2
 		/*originator.setState("State1");
@@ -187,6 +189,7 @@ public class Editor
 	{
 		mxGraph graph = createNewMxGraph();
 		graphComponent = new mxGraphComponent(graph);
+		originator = new Originator(this, "modgraf1");
 		graphComponent.setPreferredSize(createDimensionFromProperty("graphComponent-width", "graphComponent-height"));
 		graphComponent.getViewport().setOpaque(true);
 		graphComponent.getViewport().setBackground(mxUtils.parseColor(properties.getProperty("background-color")));
@@ -449,6 +452,22 @@ public class Editor
 		graph.addListener(mxEvent.CONNECT_CELL, new EventConnectCellListener(this));
 		graph.addListener(mxEvent.SPLIT_EDGE, new EventSplitEdgeListener(this));
 //		graph.addListener(mxEvent.ADD_CELLS, new EventAddCellsListener(this));
+		graph.addListener(mxEvent.CELLS_MOVED, new mxIEventListener()
+		{
+			public void invoke(Object source, mxEventObject evt)
+			{
+				setModified(true);
+				saveState("Przesun");
+			}
+		});
+		graph.addListener(mxEvent.CELLS_RESIZED, new mxIEventListener()
+		{
+			public void invoke(Object source, mxEventObject evt)
+			{
+				setModified(true);
+				saveState("Zmien");
+			}
+		});
 		graph.getModel().addListener(mxEvent.CHANGE, new mxIEventListener()
 		{
 			public void invoke(Object source, mxEventObject evt)
@@ -692,50 +711,18 @@ public class Editor
 		return new Dimension(width, height);
 	}
 
-	public void saveState(){
-		originator.setState(buildXml(graphComponent.getGraph(), graphT));
+	public void saveState(String nazwa){
+		originator.setState(nazwa);
+		//ActionSaveAs a = new ActionSaveAs(this);
+		//originator.setState(a.buildXml(graphComponent.getGraph(), graphT));
 	}
 
-	public String buildXml(mxGraph graph, Graph<Vertex, ModgrafEdge> graphT)
-	{
-		String type = null;
-		String weighted = "0";
-		//String vertexCounter = Integer.toString(vertexCounter);
-		if (graphT instanceof DirectedGraph)
-			type = "directed";
-		if (graphT instanceof UndirectedGraph)
-			type = "undirected";
-		if (graphT instanceof WeightedGraph)
-			weighted = "1";
-		if (graphT instanceof DoubleWeightedGraph)
-			weighted = "2";
-		mxCodec codec = new mxCodec();
-		Element graphModel = (Element)codec.encode(graph.getModel());
-		Element stylesheet = (Element)codec.encode(graph.getStylesheet());
-		NodeList list = stylesheet.getElementsByTagName("add");
-		for (int i = 0; i < list.getLength(); ++i)
-		{
-			Node addNode = list.item(i);
-			if (addNode.getNodeType() == Node.ELEMENT_NODE)
-			{
-				Element addElement = (Element)addNode;
-				if (addElement.hasAttribute("as"))
-				{
-					if (addElement.getAttribute("as").equals("defaultVertex"))
-					{
-						stylesheet.removeChild(addElement);
-						i = list.getLength(); //exit from loop
-					}
-				}
-			}
-		}
-		graphModel.setAttribute("type", type);
-		graphModel.setAttribute("weighted", weighted);
-		graphModel.setAttribute("vertexCounter", Integer.toString(vertexCounter));
-		String model = mxXmlUtils.getXml(graphModel);
-		String style = mxXmlUtils.getXml(stylesheet);
-		String xml = "<Modgraf>"+model+style+"</Modgraf>";
-		xml = xml.replace("><", ">\r\n<");
-		return xml;
+	//funkcje do testowania
+	public void undo(){
+		originator.undo();
+	}
+
+	public void redo(){
+		originator.redo();
 	}
 }

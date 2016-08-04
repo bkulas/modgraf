@@ -61,5 +61,6 @@ public class EventRemoveCellsListener implements mxIEventListener
 				}
 			}
 		}
+		editor.saveState("Usun");
 	}
 }
