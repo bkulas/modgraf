@@ -39,13 +39,13 @@ public class EventKeyListener extends JFrame implements KeyListener {
 
         if ((kevt.getKeyCode() == KeyEvent.VK_Z) && ((kevt.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
             System.out.println("woot! Z");
-            origin.undo();
+            //origin.undo();
             System.out.println("UNDO");
         }
 
         if ((kevt.getKeyCode() == KeyEvent.VK_Y) && ((kevt.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
             System.out.println("woot! Y");
-            origin.redo();
+            //origin.redo();
             System.out.println("REDO");
         }
 

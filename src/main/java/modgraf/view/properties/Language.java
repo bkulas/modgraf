@@ -23,6 +23,8 @@ public class Language
         lang.setProperty("menu-file-save-text-result", "Zapisz rozwiązanie tekstowe");
 
 		lang.setProperty("menu-edit", "Edycja");
+		lang.setProperty("menu-edit-undo", "Cofnij");
+		lang.setProperty("menu-edit-redo", "Powtórz");
 		lang.setProperty("menu-edit-selectable", "Zaznaczanie");
 		lang.setProperty("menu-edit-connectable", "Rysowanie krawędzi");
 
@@ -295,7 +297,19 @@ public class Language
 		lang.setProperty("pref-edge-cost", "Domyślna druga wartość w grafie podwójnie ważonym");
 		lang.setProperty("pref-edge-font-size", "Domyślny rozmiar czcionki");
 		lang.setProperty("pref-edge-font-color", "Domyślny kolor czcionki");
-		
+
+		lang.setProperty("memento-change-color", "Zmień kolor");
+		lang.setProperty("memento-change-font", "Zmień czcionkę");
+		lang.setProperty("memento-change-size", "Zmień rozmiar");
+		lang.setProperty("memento-change-shape", "Zmień kształt");
+		lang.setProperty("memento-move", "Przesuń");
+		lang.setProperty("memento-change", "Zmień");
+		lang.setProperty("memento-add-vertex", "Dodaj wierzchołek");
+		lang.setProperty("memento-add-edge", "Dodaj krawędź");
+		lang.setProperty("memento-change-edge", "Przesuń krawedź");
+		lang.setProperty("memento-change-name", "Zmień etykietę");
+		lang.setProperty("memento-remove-cell", "Usuń");
+
 		return lang;
 	}
 
@@ -312,6 +326,8 @@ public class Language
 		lang.setProperty("menu-file-save-text-result", "Save text result");
 
 		lang.setProperty("menu-edit", "Edit");
+		lang.setProperty("menu-edit-undo", "Undo");
+		lang.setProperty("menu-edit-redo", "Redo");
 		lang.setProperty("menu-edit-selectable", "Selectable");
 		lang.setProperty("menu-edit-connectable", "Connectable");
 
@@ -585,6 +601,18 @@ public class Language
 		lang.setProperty("pref-edge-cost", "Default second value in double weighted graph");
 		lang.setProperty("pref-edge-font-size", "Default font size");
 		lang.setProperty("pref-edge-font-color", "Default font color");
+
+		lang.setProperty("memento-change-color", "Change color");
+		lang.setProperty("memento-change-font", "Change font");
+		lang.setProperty("memento-change-size", "Change size");
+		lang.setProperty("memento-change-shape", "Change shape");
+		lang.setProperty("memento-move", "Move");
+		lang.setProperty("memento-change", "Change");
+		lang.setProperty("memento-add-vertex", "Add vertex");
+		lang.setProperty("memento-add-edge", "Add edge");
+		lang.setProperty("memento-change-edge", "Change edge");
+		lang.setProperty("memento-change-name", "Change label");
+		lang.setProperty("memento-remove-cell", "Remove");
 		
 		return lang;
 	}

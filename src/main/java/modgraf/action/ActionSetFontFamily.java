@@ -50,7 +50,7 @@ public class ActionSetFontFamily extends ActionSetStyle implements ActionListene
 				prop.getProperty("default-vertex-font-family"));
 		if (newValue != null){
 			setStyle(newValue);
-			editor.saveState("Zmien czcionke");
+			editor.saveState(editor.getLanguage().getProperty("memento-change-font"));
 		}
 	}
 }

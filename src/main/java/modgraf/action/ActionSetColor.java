@@ -3,6 +3,7 @@ package modgraf.action;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Properties;
 
 import javax.swing.JColorChooser;
 
@@ -35,7 +36,7 @@ public class ActionSetColor extends ActionSetStyle implements ActionListener
 				editor.getLanguage().getProperty(frameName), null);
 		if (newColor != null) {
 			setStyle(mxUtils.hexString(newColor));
-			editor.saveState("Zmien kolor");
+			editor.saveState(editor.getLanguage().getProperty("memento-change-color"));
 		}
 	}
 }

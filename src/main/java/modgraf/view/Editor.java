@@ -75,8 +75,6 @@ public class Editor
 	private Properties language;
 	private AlgorithmMenuItems ami;
 	private Originator originator;
-	//private JTextField lbl;
-	//private JPanel panel;
 	
 	/**
 	 * Konstruktor. Jest wywoływany w metodzie <code>main(String[] args)
@@ -218,7 +216,7 @@ public class Editor
 	private void addGraphComponentListeners()
 	{
 		graphComponent.addListener(mxEvent.LABEL_CHANGED, new EventLabelChangedListener(this));
-		graphComponent.addKeyListener(new EventKeyListener(this));
+		//graphComponent.addKeyListener(new EventKeyListener(this));
 		graphComponent.getGraphControl().addMouseListener(new MouseAdapter()
 		{
 			@Override
@@ -457,7 +455,7 @@ public class Editor
 			public void invoke(Object source, mxEventObject evt)
 			{
 				setModified(true);
-				saveState("Przesun");
+				saveState(language.getProperty("memento-move"));
 			}
 		});
 		graph.addListener(mxEvent.CELLS_RESIZED, new mxIEventListener()
@@ -465,7 +463,7 @@ public class Editor
 			public void invoke(Object source, mxEventObject evt)
 			{
 				setModified(true);
-				saveState("Zmien");
+				saveState(language.getProperty("memento-change"));
 			}
 		});
 		graph.getModel().addListener(mxEvent.CHANGE, new mxIEventListener()

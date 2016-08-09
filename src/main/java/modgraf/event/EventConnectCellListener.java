@@ -58,7 +58,7 @@ public class EventConnectCellListener implements mxIEventListener
 			else
 				removeEdgeAndShowWarning(edge);
 		}
-		editor.saveState("Przesun krawedz");
+		editor.saveState(editor.getLanguage().getProperty("memento-change-edge"));
 	}
 
 	private void removeEdgeAndShowWarning(mxCell edge)

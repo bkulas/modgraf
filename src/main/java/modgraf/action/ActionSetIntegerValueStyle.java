@@ -63,6 +63,6 @@ public class ActionSetIntegerValueStyle extends ActionSetStyle implements Action
 						lang.getProperty("warning"), JOptionPane.WARNING_MESSAGE);
 			}
 		}
-		editor.saveState("Zmien wielkosc");
+		editor.saveState(editor.getLanguage().getProperty("memento-change-size"));
 	}
 }

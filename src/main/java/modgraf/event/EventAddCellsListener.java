@@ -67,8 +67,8 @@ public class EventAddCellsListener implements mxIEventListener
 					addCellToGraphT(cell);
 //					addCellToGraphT(cell, evt);
 					if(cell.isVertex())
-						editor.saveState("Dodaj wierzcholek");
-					else editor.saveState("Dodaj krawedz");
+						editor.saveState(editor.getLanguage().getProperty("memento-add-vertex"));
+					else editor.saveState(editor.getLanguage().getProperty("memento-add-edge"));
 				}
 			}
 		}

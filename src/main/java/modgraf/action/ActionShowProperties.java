@@ -183,9 +183,10 @@ public class ActionShowProperties implements ActionListener
 
                     e.setId(e_id);
                     editor.setEdgeId(new_source_id, new_target_id, e_id);
-                    gt.addEdge(v_source, v_target);
+                    ModgrafEdge ed = gt.addEdge(v_source, v_target);
+                    ed.setId(e_id);
                     gt.getEdgeFactory().createEdge(v_source, v_target);
-                    editor.getEdges().put(e_id, e);
+                    editor.getEdges().put(e_id, ed);
 
                 }
 
@@ -224,9 +225,10 @@ public class ActionShowProperties implements ActionListener
 
                     e.setId(e_id);
                     editor.setEdgeId(new_source_id, new_target_id, e_id);
-                    gt.addEdge(v_source, v_target);
+                    ModgrafEdge ed = gt.addEdge(v_source, v_target);
+                    ed.setId(e_id);
                     gt.getEdgeFactory().createEdge(v_source, v_target);
-                    editor.getEdges().put(e_id, e);
+                    editor.getEdges().put(e_id, ed);
 
                     /*Iterator e = gt.edgeSet().iterator();
                     Iterator v = gt.vertexSet().iterator();

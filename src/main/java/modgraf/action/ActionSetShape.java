@@ -29,7 +29,7 @@ public class ActionSetShape extends ActionSetStyle implements ActionListener
 	public void actionPerformed(ActionEvent arg0) 
 	{
 		setStyle(shape);
-		editor.saveState("Zmien ksztalt");
+		editor.saveState(editor.getLanguage().getProperty("memento-change-shape"));
 	}
 }
 

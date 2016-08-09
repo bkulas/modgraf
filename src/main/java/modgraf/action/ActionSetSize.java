@@ -51,7 +51,7 @@ public class ActionSetSize implements ActionListener
 		else
 			setSizeForAllVertex();
 		editor.getGraphComponent().refresh();
-		editor.saveState("Zmien rozmiar");
+		editor.saveState(editor.getLanguage().getProperty("memento-change-size"));
 	}
 
 	private void setSizeForSelectedVertex()

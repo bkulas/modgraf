@@ -61,6 +61,6 @@ public class EventRemoveCellsListener implements mxIEventListener
 				}
 			}
 		}
-		editor.saveState("Usun");
+		editor.saveState(editor.getLanguage().getProperty("memento-remove-cell"));
 	}
 }

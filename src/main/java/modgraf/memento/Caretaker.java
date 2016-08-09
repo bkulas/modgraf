@@ -59,4 +59,12 @@ public class Caretaker {
         previous = actual+1;
         return getMemento(actual);
     }
+
+    public String getActualName(){
+        return getMemento(actual).getName();
+    }
+
+    public String getPreviousName(){
+        return getMemento(previous).getName();
+    }
 }

@@ -56,6 +56,9 @@ public class MenuBar extends JMenuBar
 		add(file);
 
 		JMenu edit = new JMenu(lang.getProperty("menu-edit"));
+		edit.add(createMenuItem("menu-edit-undo", new ActionUndo(editor), false, "icons/undo.png", "ctrl Z"));
+		edit.add(createMenuItem("menu-edit-redo", new ActionRedo(editor), false, "icons/redo.png", "ctrl shift Z"));
+		edit.addSeparator();
 		edit.add(createCheckboxMenuItem("menu-edit-selectable", Settings.selectable));
 		edit.add(createCheckboxMenuItem("menu-edit-connectable", Settings.connectable));
 		add(edit);

@@ -73,7 +73,7 @@ public class EventLabelChangedListener extends LabelChangedUtils implements mxIE
 			if (checkIfValueIsReallyChanged(cell))
 				changeValueForVertex(cell);
 		}
-		editor.saveState("Edytuj zmien nazwe");
+		editor.saveState(editor.getLanguage().getProperty("memento-change-name"));
 	}
 
 	private boolean checkIfValueIsReallyChanged(mxCell cell)

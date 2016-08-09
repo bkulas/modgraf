@@ -83,4 +83,13 @@ public class Originator {
         //this.state = ct.redo().getState();
         System.out.println(number);
     }
+
+    public String checkUndoName(){
+        return caretaker.getActualName();
+    }
+
+    public String checkRedoName(){
+        return caretaker.getPreviousName();
+    }
+
 }
