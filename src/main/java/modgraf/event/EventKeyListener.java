@@ -49,6 +49,22 @@ public class EventKeyListener extends JFrame implements KeyListener {
             System.out.println("REDO");
         }
 
+        if ((kevt.getKeyCode() == KeyEvent.VK_UP)) {
+            System.out.println("+");
+            //origin.undo();
+            //editor.getGraphComponent().setPageVisible(true);
+            editor.getGraphComponent().zoomIn();
+            System.out.println("UP");
+        }
+
+        if ((kevt.getKeyCode() == KeyEvent.VK_DOWN)) {
+            System.out.println("+");
+            //origin.undo();
+            //editor.getGraphComponent().setPageVisible(true);
+            editor.getGraphComponent().zoomOut();
+            System.out.println("UP");
+        }
+
     }
 
     @Override

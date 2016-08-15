@@ -216,7 +216,7 @@ public class Editor
 	private void addGraphComponentListeners()
 	{
 		graphComponent.addListener(mxEvent.LABEL_CHANGED, new EventLabelChangedListener(this));
-		//graphComponent.addKeyListener(new EventKeyListener(this));
+		graphComponent.addKeyListener(new EventKeyListener(this));
 		graphComponent.getGraphControl().addMouseListener(new MouseAdapter()
 		{
 			@Override
