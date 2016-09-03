@@ -44,6 +44,10 @@ public abstract class ModgrafAbstractStepsAlgorithm extends ModgrafAbstractAlgor
      */
     private JButton clear;
     /**
+     * Przycisk "Włącz wyświetlanie odległości"
+     */
+    private JButton show;
+    /**
      * Metoda załadowywania ikon (true jeśli z pliku jar, false jeśli z poza pliku)
      */
     private boolean useClassLoader;
@@ -99,6 +103,7 @@ public abstract class ModgrafAbstractStepsAlgorithm extends ModgrafAbstractAlgor
         play = new JButton();
         fastForward = new JButton();
         clear = new JButton(lang.getProperty("button-disable-show-distances"));
+        show = new JButton(lang.getProperty("button-enable-show-distances"));
         addIcon(pause, "icons/pause-48.png");
         addIcon(play, "icons/play-48.png");
         addIcon(fastForward, "icons/fast_forward-48.png");
@@ -108,6 +113,7 @@ public abstract class ModgrafAbstractStepsAlgorithm extends ModgrafAbstractAlgor
         stepsPanel.add(play);
         stepsPanel.add(fastForward);
         stepsPanel.add(clear);
+        stepsPanel.add(show);
         return stepsPanel;
     }
 
@@ -150,6 +156,13 @@ public abstract class ModgrafAbstractStepsAlgorithm extends ModgrafAbstractAlgor
             }
         });
         clear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                disableShowDistances();
+                editor.getGraphComponent().refresh();
+            }
+        });
+        show.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 disableShowDistances();

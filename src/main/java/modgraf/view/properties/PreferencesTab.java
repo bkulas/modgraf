@@ -64,7 +64,7 @@ public class PreferencesTab extends JPanel
 		setLayout(tableLayout);
 	}
 
-	protected JPanel createColorChooser(Color color, ChangeColorListener ccl)
+	public JPanel createColorChooser(Color color, ChangeColorListener ccl)
 	{
 		JPanel panel = new JPanel();
 		FlowLayout layout = (FlowLayout) panel.getLayout();

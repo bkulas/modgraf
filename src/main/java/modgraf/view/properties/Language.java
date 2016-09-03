@@ -298,6 +298,22 @@ public class Language
 		lang.setProperty("pref-edge-font-size", "Domyślny rozmiar czcionki");
 		lang.setProperty("pref-edge-font-color", "Domyślny kolor czcionki");
 
+		lang.setProperty("prop-id", "Id"); //id
+		lang.setProperty("prop-border-color", "Kolor krawędzi"); //Kolor obramowania
+		lang.setProperty("prop-border-width", "Grubość krawędzi"); //grubosc obramowania
+		lang.setProperty("prop-font-family", "Czcionka"); //czcionka
+		lang.setProperty("prop-font-size", "Rozmiar czcionki"); //rozmiar czcionki
+		lang.setProperty("prop-font-color", "Kolor czcionki"); //kolor czcionki
+		lang.setProperty("prop-vertex-shape", "Kształt"); //kształt
+		lang.setProperty("prop-vertex-height", "Wysokość wierzchołka"); //wysokosc
+		lang.setProperty("prop-vertex-width", "Szerokość wierzchołka"); //szerokosc
+		lang.setProperty("prop-vertex-fill-color", "Kolor wypełnienia"); //Kolor wypełnienia
+		lang.setProperty("prop-edge-source", "źródło"); //źródło
+		lang.setProperty("prop-edge-target", "Cel"); //cel
+		lang.setProperty("prop-edge-weight", "Waga"); //waga
+		lang.setProperty("prop-edge-capacity", "Przepustowość"); //przepustowosc
+		lang.setProperty("prop-edge-cost", "Koszt");
+
 		lang.setProperty("memento-change-color", "Zmień kolor");
 		lang.setProperty("memento-change-font", "Zmień czcionkę");
 		lang.setProperty("memento-change-size", "Zmień rozmiar");
