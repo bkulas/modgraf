@@ -308,7 +308,8 @@ public class Language
 		lang.setProperty("prop-vertex-height", "Wysokość wierzchołka"); //wysokosc
 		lang.setProperty("prop-vertex-width", "Szerokość wierzchołka"); //szerokosc
 		lang.setProperty("prop-vertex-fill-color", "Kolor wypełnienia"); //Kolor wypełnienia
-		lang.setProperty("prop-edge-source", "źródło"); //źródło
+		lang.setProperty("prop-vertex-name", "Nazwa"); //Kolor wypełnienia
+		lang.setProperty("prop-edge-source", "Źródło"); //źródło
 		lang.setProperty("prop-edge-target", "Cel"); //cel
 		lang.setProperty("prop-edge-weight", "Waga"); //waga
 		lang.setProperty("prop-edge-capacity", "Przepustowość"); //przepustowosc

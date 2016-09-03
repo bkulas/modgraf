@@ -10,16 +10,15 @@ import modgraf.view.Editor;
 import modgraf.jgrapht.Vertex;
 import modgraf.view.properties.ChangeColorListener;
 import modgraf.view.properties.PreferencesTab;
-import modgraf.jgrapht.DoubleWeightedGraph;
+import modgraf.jgrapht.*;
+import modgraf.jgrapht.edge.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Properties;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Vector;
 
 import org.jgrapht.Graph;
 import org.jgrapht.WeightedGraph;
@@ -48,12 +47,15 @@ public class ActionShowProperties implements ActionListener
     private static final double PARAMS_COLUMN_WIDTH = 0.37;
     private static final double SPACE_COLUMN_WIDTH = 0.03;
     private static final double LABEL_COLUMN_WIDTH = 0.6;
-    private static final int ROW_COUNT = 13;
+    private static final int ROW_COUNT = 12;
     private static final double ROW_HEIGHT = 30;
     public static final int VERTEX_MINIMUM_SIZE = 1;
     public static final int VERTEX_MAXIMUM_SIZE = 1000;
     public static final int BORDER_MINIMUM_WIDTH = 0;
     public static final int BORDER_MAXIMUM_WIDTH = 100;
+    public static final int FIELD_SIZE = 5;
+    public static final int FONT_MINIMUM_SIZE = 1;
+    public static final int FONT_MAXIMUM_SIZE = 100;
     private TableLayout tableLayout;
     private JComboBox<String> shape;
     private JFormattedTextField height;
@@ -64,6 +66,11 @@ public class ActionShowProperties implements ActionListener
     private JComboBox<Object> fontFamily;
     private JFormattedTextField fontSize;
     private ChangeColorListener fontColorListener;
+    private JTextField name;
+    private JLabel name_label;
+    private JFormattedTextField edgeWeight;
+    private JFormattedTextField edgeCapacity;
+    private JFormattedTextField edgeCost;
 
     public ActionShowProperties(Editor e)
     {
@@ -121,7 +128,7 @@ public class ActionShowProperties implements ActionListener
         createParamsColumn();
 
         if (cell.isVertex())
-        {
+        {/*
             Vertex v = vertices.get(cell.getId());
 
             //SpringLayout layout = new SpringLayout();
@@ -138,10 +145,10 @@ public class ActionShowProperties implements ActionListener
             p.add(name_field, "2 11 l c");
 
 
-
+*/
             JOptionPane.showMessageDialog(editor.getGraphComponent(), p,
                     lang.getProperty("properties"), JOptionPane.PLAIN_MESSAGE);
-            String new_name = name_field.getText();
+/*            String new_name = name_field.getText();
 
             if(!new_name.equals(v.getName())) {
                 System.out.println("Zmieniono nazwę");
@@ -152,28 +159,25 @@ public class ActionShowProperties implements ActionListener
             System.out.println("new: "+new_name);
 
             editor.getGraphComponent().refresh();
-
+            */
         }
         if (cell.isEdge())
         {
             ModgrafEdge e = edges.get(cell.getId());
 
-            JLabel id = new JLabel("ID: "+e.getId());
-            p.add(id, "0 10 r c");
-
             JLabel source = new JLabel("Źródło: ");
-            p.add(source, "0 11 r c");
+            p.add(source, "0 10 r c");
             JTextField source_field = new JTextField(10);
             source_field.setText(e.getSource().getName());
             source.setLabelFor(source_field);
-            p.add(source_field, "2 11 l c");
+            p.add(source_field, "2 10 l c");
 
             JLabel target = new JLabel("Cel: ");
-            p.add(target, "0 12 r c");
+            p.add(target, "0 11 r c");
             JTextField target_field = new JTextField(10);
             target_field.setText(e.getTarget().getName());
             target.setLabelFor(target_field);
-            p.add(target_field, "2 12 l c");
+            p.add(target_field, "2 11 l c");
 
             JOptionPane.showMessageDialog(editor.getGraphComponent(), p,
                     lang.getProperty("properties"), JOptionPane.PLAIN_MESSAGE);
@@ -297,11 +301,13 @@ public class ActionShowProperties implements ActionListener
             p.add(new JLabel(lang.getProperty("prop-vertex-height")), "0 7 r c"); //wysokosc
             p.add(new JLabel(lang.getProperty("prop-vertex-width")), "0 8 r c"); //szerokosc
             p.add(new JLabel(lang.getProperty("prop-vertex-fill-color")), "0 9 r c"); //Kolor wypełnienia
+            name_label = new JLabel(lang.getProperty("prop-vertex-name"));
+            p.add(new JLabel(lang.getProperty("prop-vertex-name")), "0 10 r c"); //Nazwa
 
         }
         else if(cell.isEdge()){
-            p.add(new JLabel(lang.getProperty("prop-edge-source")), "0 6 r c"); //źródło
-            p.add(new JLabel(lang.getProperty("prop-edge-target")), "0 7 r c"); //cel
+//            p.add(new JLabel(lang.getProperty("prop-edge-source")), "0 6 r c"); //źródło
+//            p.add(new JLabel(lang.getProperty("prop-edge-target")), "0 7 r c"); //cel
             if(gt instanceof WeightedGraph){
                 p.add(new JLabel(lang.getProperty("prop-edge-weight")), "0 8 r c"); //waga
 
@@ -316,9 +322,9 @@ public class ActionShowProperties implements ActionListener
 
         p.add(new JLabel(cell.getId()), "2 0 l c"); //id
         p.add(createBorderColorChooser(), "2 1 l c"); //Kolor obramowania
-//        p.add(createBorderWidthField(), "2 2 l c"); //grubosc obramowania
-//        p.add(createFontFamilyField(), "2 3 l c"); //czcionka
-//        p.add(createFontSizeField(), "2 4 l c"); //rozmiar czcionki
+        p.add(createBorderWidthField(), "2 2 l c"); //grubosc obramowania
+        p.add(createFontFamilyField(), "2 3 l c"); //czcionka
+        p.add(createFontSizeField(), "2 4 l c"); //rozmiar czcionki
         p.add(createFontColorChooser(), "2 5 l c"); //kolor czcionki
 
         if(cell.isVertex()){
@@ -326,17 +332,18 @@ public class ActionShowProperties implements ActionListener
             p.add(createHeightField(), "2 7 l c"); //wysokosc
             p.add(createWidthField(), "2 8 l c"); //szerokosc
             p.add(createFillColorChooser(), "2 9 l c"); //Kolor wypełnienia
+            p.add(createNameField(), "2 10 l c"); //Nazwa
 
         }
         else if(cell.isEdge()){
 //            p.add(new JLabel(lang.getProperty("prop-edge-source")), "2 6 l c"); //źródło
 //            p.add(new JLabel(lang.getProperty("prop-edge-target")), "2 7 l c"); //cel
             if(gt instanceof WeightedGraph){
-//                p.add(new JLabel(lang.getProperty("prop-edge-weight")), "2 8 l c"); //waga
+                p.add(createEdgeWeightField(), "2 8 l c"); //waga
 
             } else if(gt instanceof DoubleWeightedGraph) {
-//                p.add(new JLabel(lang.getProperty("prop-edge-capacity")), "2 8 l c"); //przepustowosc
-//                p.add(new JLabel(lang.getProperty("prop-edge-cost")), "2 9 l c"); //koszt
+                p.add(createCapacityField(), "2 8 l c"); //przepustowosc
+                p.add(createCostField(), "2 9 l c"); //koszt
             }
         }
 
@@ -346,6 +353,39 @@ public class ActionShowProperties implements ActionListener
         Color borderColor = mxUtils.parseColor((String)editor.getGraphComponent().getGraph().getCellStyle(cell).get(STYLE_STROKECOLOR));
         borderColorListener = new ChangeColorListener(editor, borderColor);
         return p.createColorChooser(borderColor, borderColorListener);
+    }
+
+    private JComponent createBorderWidthField()
+    {
+        borderWidth = new JFormattedTextField(
+                p.createNumberFormatter(BORDER_MINIMUM_WIDTH, BORDER_MAXIMUM_WIDTH));
+        borderWidth.setColumns(p.FIELD_SIZE);
+        borderWidth.setToolTipText(p.createHint(BORDER_MINIMUM_WIDTH, BORDER_MAXIMUM_WIDTH));
+        borderWidth.setValue(new Integer((String)editor.getGraphComponent().getGraph().getCellStyle(cell).get(STYLE_STROKEWIDTH)));
+        return borderWidth;
+    }
+
+    private JComponent createFontFamilyField()
+    {
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        java.util.List<String> fonts = new ArrayList<>();
+        fonts.addAll(Arrays.asList("Helvetica", "Verdana",
+                "Times New Roman", "Garamond", "Courier New", "Arial", "---"));
+        fonts.addAll(Arrays.asList(env.getAvailableFontFamilyNames()));
+        fontFamily = new JComboBox<>(fonts.toArray());
+        fontFamily.setSelectedItem(editor.getGraphComponent().getGraph().getCellStyle(cell).get(STYLE_FONTFAMILY));
+        return fontFamily;
+    }
+
+    private JComponent createFontSizeField()
+    {
+        fontSize = new JFormattedTextField(
+                p.createNumberFormatter(p.FONT_MINIMUM_SIZE, p.FONT_MAXIMUM_SIZE));
+        fontSize.setColumns(p.FIELD_SIZE);
+        fontSize.setToolTipText(p.createHint(p.FONT_MINIMUM_SIZE, p.FONT_MAXIMUM_SIZE));
+        System.out.println(editor.getGraphComponent().getGraph().getCellStyle(cell).get(STYLE_FONTSIZE));
+        fontSize.setValue(new Integer((String)editor.getGraphComponent().getGraph().getCellStyle(cell).get(STYLE_FONTSIZE)));
+        return fontSize;
     }
 
     private JComponent createFontColorChooser(){
@@ -425,13 +465,85 @@ public class ActionShowProperties implements ActionListener
         return p.createColorChooser(fillColor, fillColorListener);
     }
 
+    private JComponent createNameField()
+    {
+        name = new JTextField(8);
+        System.out.println("value "+cell.getValue());
+        name.setText(vertices.get(cell.getId()).getName());
+        return name;
+    }
+
+    private JComponent createEdgeWeightField(){
+        edgeWeight = new JFormattedTextField(
+                p.createNumberFormatter(VERTEX_MINIMUM_SIZE, VERTEX_MAXIMUM_SIZE));
+        edgeWeight.setColumns(p.FIELD_SIZE);
+        edgeWeight.setToolTipText(p.createHint(VERTEX_MINIMUM_SIZE, VERTEX_MAXIMUM_SIZE));
+        edgeWeight.setValue(new Integer(cell.getValue().toString()));
+        return edgeWeight;
+    }
+
+    private JComponent createCapacityField(){
+        if(gt instanceof DirectedDoubleWeightedGraph) {
+            DirectedDoubleWeightedEdge e = (DirectedDoubleWeightedEdge) edges.get(cell.getId());
+        }
+        else if(gt instanceof DoubleWeightedGraph){
+            DoubleWeightedEdgeImpl e = (DoubleWeightedEdgeImpl) edges.get(cell.getId());
+        }
+        edgeCapacity = new JFormattedTextField(
+                p.createNumberFormatter(VERTEX_MINIMUM_SIZE, VERTEX_MAXIMUM_SIZE));
+        edgeCapacity.setColumns(p.FIELD_SIZE);
+        edgeCapacity.setToolTipText(p.createHint(VERTEX_MINIMUM_SIZE, VERTEX_MAXIMUM_SIZE));
+        if(gt instanceof DirectedDoubleWeightedGraph) {
+            DirectedDoubleWeightedEdge e = (DirectedDoubleWeightedEdge) edges.get(cell.getId());
+            edgeCapacity.setValue(e.getCapacity());
+        }
+        else if(gt instanceof DoubleWeightedGraph){
+            DoubleWeightedEdgeImpl e = (DoubleWeightedEdgeImpl) edges.get(cell.getId());
+            edgeCapacity.setValue(e.getCapacity());
+        }
+        return edgeCapacity;
+    }
+
+    private JComponent createCostField(){
+        edgeCost = new JFormattedTextField(
+                p.createNumberFormatter(VERTEX_MINIMUM_SIZE, VERTEX_MAXIMUM_SIZE));
+        edgeCost.setColumns(p.FIELD_SIZE);
+        edgeCost.setToolTipText(p.createHint(VERTEX_MINIMUM_SIZE, VERTEX_MAXIMUM_SIZE));
+        if(gt instanceof DirectedDoubleWeightedGraph) {
+            DirectedDoubleWeightedEdge e = (DirectedDoubleWeightedEdge) edges.get(cell.getId());
+            edgeCost.setValue(e.getCost());
+        }
+        else if(gt instanceof DoubleWeightedGraph){
+            DoubleWeightedEdgeImpl e = (DoubleWeightedEdgeImpl) edges.get(cell.getId());
+            edgeCost.setValue(e.getCost());
+        }
+        return edgeCost;
+    }
+
     private void saveChanges(){
 
         //bordercolor
-        System.out.println(editor.getGraphComponent().getGraph().getCellStyle(cell).get(STYLE_STROKECOLOR));
-        System.out.println(mxUtils.hexString(borderColorListener.getColor()));
         if (!mxUtils.hexString(borderColorListener.getColor()).equals(editor.getGraphComponent().getGraph().getCellStyle(cell).get(STYLE_STROKECOLOR))) {
             editor.getGraphComponent().getGraph().setCellStyles(STYLE_STROKECOLOR,mxUtils.hexString(borderColorListener.getColor()));
+            changed = true;
+        }
+
+        //bordercolor
+        if (!borderWidth.getValue().toString().equals(editor.getGraphComponent().getGraph().getCellStyle(cell).get(STYLE_STROKEWIDTH))) {
+            editor.getGraphComponent().getGraph().setCellStyles(STYLE_STROKEWIDTH,borderWidth.getValue().toString());
+            changed = true;
+        }
+
+        //font
+        if (!fontFamily.getSelectedItem().equals(editor.getGraphComponent().getGraph().getCellStyle(cell).get(STYLE_FONTFAMILY))){
+            editor.getGraphComponent().getGraph().setCellStyles(STYLE_FONTFAMILY,fontFamily.getSelectedItem().toString());
+            changed = true;
+        }
+
+        //fontsize
+        if(!fontSize.getValue().toString().equals(editor.getGraphComponent().getGraph().getCellStyle(cell).get(STYLE_FONTSIZE))){
+            System.out.println("size "+fontSize.getValue().toString());
+            editor.getGraphComponent().getGraph().setCellStyles(STYLE_FONTSIZE, fontSize.getValue().toString());
             changed = true;
         }
 
@@ -442,8 +554,7 @@ public class ActionShowProperties implements ActionListener
         }
 
         if(cell.isVertex()) {
-
-
+            Vertex v = vertices.get(cell.getId());
 
             //shape
             if (!getSelectedShape().equals(editor.getGraphComponent().getGraph().getCellStyle(cell).get(STYLE_SHAPE))) {
@@ -466,9 +577,9 @@ public class ActionShowProperties implements ActionListener
             //width
             if(!width.getValue().equals(cell.getGeometry().getWidth())){
                 System.out.println(width.getValue());
-                int v = (int)width.getValue();
-                if(v!=cell.getGeometry().getWidth()){
-                    cell.getGeometry().setWidth((double) v);
+                int w = (int)width.getValue();
+                if(w!=cell.getGeometry().getWidth()){
+                    cell.getGeometry().setWidth((double) w);
                     changed = true;
                 }
             }
@@ -477,6 +588,64 @@ public class ActionShowProperties implements ActionListener
             if (!mxUtils.hexString(fillColorListener.getColor()).equals(editor.getGraphComponent().getGraph().getCellStyle(cell).get(STYLE_FILLCOLOR))) {
                 editor.getGraphComponent().getGraph().setCellStyles(STYLE_FILLCOLOR,mxUtils.hexString(fillColorListener.getColor()));
                 changed = true;
+            }
+
+            //name
+            if(!name.getText().equals(cell.getValue().toString())){
+                cell.setValue(name.getText());
+                v.setName(name.getText());
+                changed = true;
+            }
+        }
+        else if(cell.isEdge())
+        {
+            ModgrafEdge e = edges.get(cell.getId());
+
+            //weight
+            if(gt instanceof ModgrafUndirectedWeightedGraph){
+                if(!edgeWeight.getText().equals(cell.getValue().toString())){
+                    cell.setValue(edgeWeight.getValue());
+                    int w = (int)edgeWeight.getValue();
+                    ((WeightedEdgeImpl)e).setWeight((double)w);
+                    changed = true;
+                }
+            }
+            else if(gt instanceof ModgrafDirectedWeightedGraph){
+                if(!edgeWeight.getText().equals(cell.getValue().toString())){
+                    cell.setValue(edgeWeight.getValue());
+                    int w = (int)edgeWeight.getValue();
+                    ((DirectedWeightedEdge)e).setWeight((double)w);
+                    changed = true;
+                }
+            }
+
+            //capacity & cost
+            if(gt instanceof UndirectedDoubleWeightedGraph){
+                if(!edgeCapacity.getValue().equals(((DoubleWeightedEdgeImpl)e).getCapacity())){
+                    int w = (int)edgeCapacity.getValue();
+                    ((DoubleWeightedEdge)e).setCapacity((double)w);
+                    changed = true;
+                }
+                if(!edgeCost.getValue().equals(((DoubleWeightedEdgeImpl)e).getCost())){
+                    int w = (int)edgeCost.getValue();
+                    ((DoubleWeightedEdge)e).setCost((double)w);
+                    changed = true;
+                }
+                cell.setValue(((DoubleWeightedEdge)e).getCapacity()+"/"+((DoubleWeightedEdge)e).getCost());
+            }
+            else if(gt instanceof DirectedDoubleWeightedGraph){
+                if(!edgeCapacity.getValue().equals(((DirectedDoubleWeightedEdge)e).getCapacity())){
+                    int w = (int)edgeCapacity.getValue();
+                    ((DirectedDoubleWeightedEdge)e).setCapacity((double)w);
+                    changed = true;
+                }
+                if(!edgeCost.getValue().equals(((DirectedDoubleWeightedEdge)e).getCost())){
+                    int w = (int)edgeCost.getValue();
+                    ((DirectedDoubleWeightedEdge)e).setCost((double)w);
+                    changed = true;
+                }
+
+                cell.setValue(((DoubleWeightedEdge)e).getCapacity()+"/"+((DoubleWeightedEdge)e).getCost());
             }
         }
 
