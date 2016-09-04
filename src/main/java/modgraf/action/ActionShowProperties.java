@@ -47,7 +47,7 @@ public class ActionShowProperties implements ActionListener
     private static final double PARAMS_COLUMN_WIDTH = 0.37;
     private static final double SPACE_COLUMN_WIDTH = 0.03;
     private static final double LABEL_COLUMN_WIDTH = 0.6;
-    private static final int ROW_COUNT = 12;
+    private static final int ROW_COUNT = 11;
     private static final double ROW_HEIGHT = 30;
     public static final int VERTEX_MINIMUM_SIZE = 1;
     public static final int VERTEX_MAXIMUM_SIZE = 1000;
@@ -56,6 +56,9 @@ public class ActionShowProperties implements ActionListener
     public static final int FIELD_SIZE = 5;
     public static final int FONT_MINIMUM_SIZE = 1;
     public static final int FONT_MAXIMUM_SIZE = 100;
+    private static final int FRAME_HEIGHT = 400;
+    private static final int FRAME_WIDTH = 400;
+    private JFrame frame;
     private TableLayout tableLayout;
     private JComboBox<String> shape;
     private JFormattedTextField height;
@@ -67,6 +70,8 @@ public class ActionShowProperties implements ActionListener
     private JFormattedTextField fontSize;
     private ChangeColorListener fontColorListener;
     private JTextField name;
+    private JTextField source;
+    private JTextField target;
     private JLabel name_label;
     private JFormattedTextField edgeWeight;
     private JFormattedTextField edgeCapacity;
@@ -127,164 +132,48 @@ public class ActionShowProperties implements ActionListener
         createLabelsColumn();
         createParamsColumn();
 
-        if (cell.isVertex())
-        {/*
-            Vertex v = vertices.get(cell.getId());
+        JPanel buttonPanel = createButtonPanel();
+        frame = new JFrame(lang.getProperty("properties"));
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
+        frame.add(p, BorderLayout.CENTER);
+        frame.add(buttonPanel, BorderLayout.SOUTH);
+        frame.pack();
+        frame.setLocationRelativeTo(editor.getGraphComponent());
+        frame.setVisible(true);
 
-            //SpringLayout layout = new SpringLayout();
-            //p.setLayout(layout);
+//        JOptionPane.showMessageDialog(editor.getGraphComponent(), p,
+//                lang.getProperty("properties"), JOptionPane.PLAIN_MESSAGE);
 
-            JLabel id = new JLabel("ID: "+cell.getId());
-            p.add(id, "0 10 r c");
-
-            JLabel name = new JLabel("Nazwa: ");
-            p.add(name, "0 11 r c");
-            JTextField name_field = new JTextField(10);
-            name_field.setText(v.getName());
-            name.setLabelFor(name_field);
-            p.add(name_field, "2 11 l c");
-
-
-*/
-            JOptionPane.showMessageDialog(editor.getGraphComponent(), p,
-                    lang.getProperty("properties"), JOptionPane.PLAIN_MESSAGE);
-/*            String new_name = name_field.getText();
-
-            if(!new_name.equals(v.getName())) {
-                System.out.println("Zmieniono nazwę");
-                cell.setValue(new_name);
-                v.setName(new_name);
-            }
-
-            System.out.println("new: "+new_name);
-
-            editor.getGraphComponent().refresh();
-            */
-        }
-        if (cell.isEdge())
-        {
-            ModgrafEdge e = edges.get(cell.getId());
-
-            JLabel source = new JLabel("Źródło: ");
-            p.add(source, "0 10 r c");
-            JTextField source_field = new JTextField(10);
-            source_field.setText(e.getSource().getName());
-            source.setLabelFor(source_field);
-            p.add(source_field, "2 10 l c");
-
-            JLabel target = new JLabel("Cel: ");
-            p.add(target, "0 11 r c");
-            JTextField target_field = new JTextField(10);
-            target_field.setText(e.getTarget().getName());
-            target.setLabelFor(target_field);
-            p.add(target_field, "2 11 l c");
-
-            JOptionPane.showMessageDialog(editor.getGraphComponent(), p,
-                    lang.getProperty("properties"), JOptionPane.PLAIN_MESSAGE);
-            String new_source = source_field.getText();
-            String new_target = target_field.getText();
-
-            System.out.println("EdgeId: "+editor.getEdgeId(e.getSource().getId(),e.getTarget().getId()));
-            String old_source_id = e.getSource().getId();
-            String old_target_id = e.getTarget().getId();
-            String new_source_id = old_source_id;
-            String new_target_id = old_target_id;
-            String e_id = e.getId();
-
-            if(!new_source.equals(e.getSource().getName())) {
-                System.out.println("Nie równe " + new_source);
-                String key = "-1";
-                for (Entry<String, Vertex> entry : vertices.entrySet()) {
-                    if (new_source.equals(entry.getValue().getName())) {
-                        key = entry.getKey();
-                        System.out.println("Znaleziono klucz " + key);
-                        new_source_id = key;
-                    }
-                }
-
-                if (!key.equals("-1")){
-                    gt.removeEdge(e);
-                    editor.removeEdgeId(old_source_id, old_target_id);
-
-                    System.out.println("Zmieniono źródło" + new_source);
-                    e.setSource(vertices.get(key));
-                    mxGraphModel model = new mxGraphModel(editor.getGraphComponent().getGraph().getModel().getRoot());
-                    mxCell ce = (mxCell)model.getCell(cell.getId());
-                    System.out.println("Znaleziono celke krawedz " + ce.getId());
-                    mxICell cv = (mxICell)model.getCell(key);
-                    System.out.println("Znaleziono celke wierzcholek " + cv.getId());
-                    cell.setSource(cv);
-
-                    Vertex v_source = vertices.get(ce.getSource().getId());
-                    Vertex v_target = vertices.get(ce.getTarget().getId());
-
-                    e.setId(e_id);
-                    editor.setEdgeId(new_source_id, new_target_id, e_id);
-                    ModgrafEdge ed = gt.addEdge(v_source, v_target);
-                    ed.setId(e_id);
-                    gt.getEdgeFactory().createEdge(v_source, v_target);
-                    editor.getEdges().put(e_id, ed);
-
-                }
-
-                else JOptionPane.showMessageDialog(editor.getGraphComponent(), "Nie ma takiego wierzchołka.",
-                        lang.getProperty("properties"), JOptionPane.PLAIN_MESSAGE);
-            }
-
-            System.out.println("Wpisano source: "+new_source);
-
-            if(!new_target.equals(e.getTarget().getName())) {
-                System.out.println("Nie równe " + new_target);
-                String key = "-1";
-                for (Entry<String, Vertex> entry : vertices.entrySet()) {
-                    if (new_target.equals(entry.getValue().getName())) {
-                        key = entry.getKey();
-                        System.out.println("Znaleziono klucz " + key);
-                        new_target_id = key;
-                    }
-                }
-
-                if (!key.equals("-1")) {
-                    gt.removeEdge(e);
-                    editor.removeEdgeId(old_source_id, old_target_id);
-
-                    System.out.println("Zmieniono cel " + new_target);
-                    e.setTarget(vertices.get(key));
-                    mxGraphModel model = new mxGraphModel(editor.getGraphComponent().getGraph().getModel().getRoot());
-                    mxCell ce = (mxCell)model.getCell(cell.getId());
-                    System.out.println("Znaleziono celke krawedz " + ce.getId());
-                    mxICell cv = (mxICell)model.getCell(key);
-                    System.out.println("Znaleziono celke wierzcholek " + cv.getId());
-                    cell.setTarget(cv);
-
-                    Vertex v_source = vertices.get(ce.getSource().getId());
-                    Vertex v_target = vertices.get(ce.getTarget().getId());
-
-                    e.setId(e_id);
-                    editor.setEdgeId(new_source_id, new_target_id, e_id);
-                    ModgrafEdge ed = gt.addEdge(v_source, v_target);
-                    ed.setId(e_id);
-                    gt.getEdgeFactory().createEdge(v_source, v_target);
-                    editor.getEdges().put(e_id, ed);
-                }
-                else JOptionPane.showMessageDialog(editor.getGraphComponent(), "Nie ma takiego wierzchołka.",
-                        lang.getProperty("properties"), JOptionPane.PLAIN_MESSAGE);
-            }
-
-            System.out.println("Wpisano target: "+new_target);
-
-            editor.removeEdgeId(old_source_id, old_target_id);
-            editor.setEdgeId(new_source_id, new_target_id, e.getId());
-
-
-
-        }
-        else {
-
-        }
-
-        saveChanges();
+        //saveChanges();
         if(changed) editor.saveState(lang.getProperty("memento-change"));
+    }
+
+    private JPanel createButtonPanel()
+    {
+        JPanel buttonPanel = new JPanel();
+        JButton save = new JButton(lang.getProperty("button-save"));
+        save.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                saveChanges();
+                frame.dispose();
+            }
+        });
+        JButton cancel = new JButton(lang.getProperty("button-cancel"));
+        cancel.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                frame.dispose();
+            }
+        });
+        buttonPanel.add(save);
+        buttonPanel.add(cancel);
+        return buttonPanel;
     }
 
     private void createLabelsColumn(){
@@ -306,8 +195,8 @@ public class ActionShowProperties implements ActionListener
 
         }
         else if(cell.isEdge()){
-//            p.add(new JLabel(lang.getProperty("prop-edge-source")), "0 6 r c"); //źródło
-//            p.add(new JLabel(lang.getProperty("prop-edge-target")), "0 7 r c"); //cel
+            p.add(new JLabel(lang.getProperty("prop-edge-source")), "0 6 r c"); //źródło
+            p.add(new JLabel(lang.getProperty("prop-edge-target")), "0 7 r c"); //cel
             if(gt instanceof WeightedGraph){
                 p.add(new JLabel(lang.getProperty("prop-edge-weight")), "0 8 r c"); //waga
 
@@ -336,8 +225,8 @@ public class ActionShowProperties implements ActionListener
 
         }
         else if(cell.isEdge()){
-//            p.add(new JLabel(lang.getProperty("prop-edge-source")), "2 6 l c"); //źródło
-//            p.add(new JLabel(lang.getProperty("prop-edge-target")), "2 7 l c"); //cel
+            p.add(createSourceField(), "2 6 l c"); //źródło
+            p.add(createTargetField(), "2 7 l c"); //cel
             if(gt instanceof WeightedGraph){
                 p.add(createEdgeWeightField(), "2 8 l c"); //waga
 
@@ -473,6 +362,20 @@ public class ActionShowProperties implements ActionListener
         return name;
     }
 
+    private JComponent createSourceField(){
+        source = new JTextField(8);
+        System.out.println("value "+cell.getValue());
+        source.setText(edges.get(cell.getId()).getSource().getName());
+        return source;
+    }
+
+    private JComponent createTargetField(){
+        target = new JTextField(8);
+        System.out.println("value "+cell.getValue());
+        target.setText(edges.get(cell.getId()).getTarget().getName());
+        return target;
+    }
+
     private JComponent createEdgeWeightField(){
         edgeWeight = new JFormattedTextField(
                 p.createNumberFormatter(VERTEX_MINIMUM_SIZE, VERTEX_MAXIMUM_SIZE));
@@ -483,12 +386,6 @@ public class ActionShowProperties implements ActionListener
     }
 
     private JComponent createCapacityField(){
-        if(gt instanceof DirectedDoubleWeightedGraph) {
-            DirectedDoubleWeightedEdge e = (DirectedDoubleWeightedEdge) edges.get(cell.getId());
-        }
-        else if(gt instanceof DoubleWeightedGraph){
-            DoubleWeightedEdgeImpl e = (DoubleWeightedEdgeImpl) edges.get(cell.getId());
-        }
         edgeCapacity = new JFormattedTextField(
                 p.createNumberFormatter(VERTEX_MINIMUM_SIZE, VERTEX_MAXIMUM_SIZE));
         edgeCapacity.setColumns(p.FIELD_SIZE);
@@ -600,6 +497,86 @@ public class ActionShowProperties implements ActionListener
         else if(cell.isEdge())
         {
             ModgrafEdge e = edges.get(cell.getId());
+            String new_source_id = e.getSource().getId();
+            String new_target_id = e.getTarget().getId();
+            boolean new_connect = false;
+
+            //source
+            if(!source.getText().equals(e.getSource().getName())){
+
+                String key = "-1";
+                for (Entry<String, Vertex> entry : vertices.entrySet()) {
+                    if (source.getText().equals(entry.getValue().getName())) {
+                        key = entry.getKey();
+                        System.out.println("Znaleziono klucz " + key);
+                        new_source_id = key;
+                    }
+                }
+
+                if (!key.equals("-1")){
+                    gt.removeEdge(e);
+                    editor.removeEdgeId(e.getSource().getId(), e.getTarget().getId());
+
+                    System.out.println("Zmieniono źródło" + source.getText());
+                    e.setSource(vertices.get(key));
+                    mxGraphModel model = new mxGraphModel(editor.getGraphComponent().getGraph().getModel().getRoot());
+                    mxCell ce = (mxCell)model.getCell(cell.getId());
+                    System.out.println("Znaleziono celke krawedz " + ce.getId());
+                    mxICell cv = (mxICell)model.getCell(key);
+                    System.out.println("Znaleziono celke wierzcholek " + cv.getId());
+                    cell.setSource(cv);
+                    e.setId(e.getId());
+
+                    new_connect = true;
+                }
+
+//                else JOptionPane.showMessageDialog(editor.getGraphComponent(), "Nie ma takiego wierzchołka.",
+//                        lang.getProperty("properties"), JOptionPane.PLAIN_MESSAGE);
+
+                changed = true;
+            }
+
+            //target
+            if(!target.getText().equals(e.getTarget().getName())){
+
+                String key = "-1";
+                for (Entry<String, Vertex> entry : vertices.entrySet()) {
+                    if (target.getText().equals(entry.getValue().getName())) {
+                        key = entry.getKey();
+                        System.out.println("Znaleziono klucz " + key);
+                        new_target_id = key;
+                    }
+                }
+
+                if (!key.equals("-1")) {
+                    gt.removeEdge(e);
+                    editor.removeEdgeId(e.getSource().getId(), e.getTarget().getId());
+
+                    System.out.println("Zmieniono cel " + target.getText());
+                    e.setTarget(vertices.get(key));
+                    mxGraphModel model = new mxGraphModel(editor.getGraphComponent().getGraph().getModel().getRoot());
+                    mxCell ce = (mxCell)model.getCell(cell.getId());
+                    System.out.println("Znaleziono celke krawedz " + ce.getId());
+                    mxICell cv = (mxICell)model.getCell(key);
+                    System.out.println("Znaleziono celke wierzcholek " + cv.getId());
+                    cell.setTarget(cv);
+                    e.setId(e.getId());
+
+                    new_connect = true;
+                }
+ //               else JOptionPane.showMessageDialog(editor.getGraphComponent(), "Nie ma takiego wierzchołka.",
+ //                       lang.getProperty("properties"), JOptionPane.PLAIN_MESSAGE);
+
+                if(new_connect) {
+                    editor.setEdgeId(new_source_id, new_target_id, e.getId());
+                    ModgrafEdge ed = gt.addEdge(e.getSource(), e.getTarget());
+                    ed.setId(e.getId());
+                    gt.getEdgeFactory().createEdge(e.getSource(), e.getTarget());
+                    editor.getEdges().put(e.getId(), ed);
+                }
+
+                changed = true;
+            }
 
             //weight
             if(gt instanceof ModgrafUndirectedWeightedGraph){

@@ -298,6 +298,7 @@ public class Language
 		lang.setProperty("pref-edge-font-size", "Domyślny rozmiar czcionki");
 		lang.setProperty("pref-edge-font-color", "Domyślny kolor czcionki");
 
+		lang.setProperty("properties", "Właściwości"); //Właściwości
 		lang.setProperty("prop-id", "Id"); //id
 		lang.setProperty("prop-border-color", "Kolor krawędzi"); //Kolor obramowania
 		lang.setProperty("prop-border-width", "Grubość krawędzi"); //grubosc obramowania
