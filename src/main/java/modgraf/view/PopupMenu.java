@@ -47,7 +47,8 @@ public class PopupMenu extends JPopupMenu
 		int selectionCount = editor.getGraphComponent().getGraph().getSelectionCount();
 
         if (selectionCount > 1)
-            return;
+			add(createMenuItem("menu-show-properties", 		new ActionShowProperties(editor)));
+     //       return;
 
 		if (selectionCount == 0)
 			add(createMenuItem("menu-vertex-add", 	new ActionAddVertexWithPosition(editor, event.getPoint()), 		"icons/add.png", 	"INSERT"));

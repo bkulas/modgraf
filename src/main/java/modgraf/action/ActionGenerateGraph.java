@@ -156,6 +156,8 @@ public class ActionGenerateGraph implements ActionListener
 		ActionOpenGrf actionOpen = new ActionOpenGrf(editor);
 		actionOpen.createGraphFromGrfFile(grfFile);
 		actionOpen.setMxGeometryOnCircle();
+
+		editor.saveState(lang.getProperty("memento-generate_graph"));
 	}
 
 	private void openParamsWindow()

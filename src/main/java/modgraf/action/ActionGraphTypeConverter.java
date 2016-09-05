@@ -45,6 +45,7 @@ public class ActionGraphTypeConverter implements ActionListener {
             new ActionOpenGrf(editor).openGrf(file);
             editor.enableAllMenuElements();
             file.delete();
+            editor.saveState(lang.getProperty("memento-convert"));
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(editor.getGraphComponent(),
                     lang.getProperty("error-not-open-file"),

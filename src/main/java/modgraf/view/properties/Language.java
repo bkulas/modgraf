@@ -327,6 +327,8 @@ public class Language
 		lang.setProperty("memento-change-edge", "Przesuń krawedź");
 		lang.setProperty("memento-change-name", "Zmień etykietę");
 		lang.setProperty("memento-remove-cell", "Usuń");
+		lang.setProperty("memento-generate_graph", "Generuj graf");
+		lang.setProperty("memento-convert", "Konwertuj");
 
 		return lang;
 	}
@@ -631,6 +633,8 @@ public class Language
 		lang.setProperty("memento-change-edge", "Change edge");
 		lang.setProperty("memento-change-name", "Change label");
 		lang.setProperty("memento-remove-cell", "Remove");
+		lang.setProperty("memento-generate_graph", "Generate graph");
+		lang.setProperty("memento-convert", "Convert");
 		
 		return lang;
 	}
