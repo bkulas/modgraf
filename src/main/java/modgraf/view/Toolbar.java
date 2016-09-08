@@ -19,6 +19,8 @@ import modgraf.action.ActionRemoveSelected;
 import modgraf.action.ActionSave;
 import modgraf.action.ActionUndo;
 import modgraf.action.ActionRedo;
+import modgraf.action.ActionZoomIn;
+import modgraf.action.ActionZoomOut;
 
 //import com.mxgraph.view.mxGraphView;
 
@@ -54,6 +56,9 @@ public class Toolbar extends JToolBar
 		addSeparator();
 		addButton(new ActionUndo(editor), "icons/undo.png", false);
 		addButton(new ActionRedo(editor), "icons/redo.png", false);
+		addSeparator();
+		addButton(new ActionZoomOut(editor), "icons/pomniejsz.png", false);
+		addButton(new ActionZoomIn(editor), "icons/powieksz.png", false);
 		addSeparator();
 		
 		add(new JLabel(editor.getLanguage().getProperty("label-graph-type")+" "));

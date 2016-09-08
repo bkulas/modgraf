@@ -27,6 +27,8 @@ public class Language
 		lang.setProperty("menu-edit-redo", "Powtórz");
 		lang.setProperty("menu-edit-selectable", "Zaznaczanie");
 		lang.setProperty("menu-edit-connectable", "Rysowanie krawędzi");
+		lang.setProperty("menu-edit-zoomin", "Przybliż");
+		lang.setProperty("menu-edit-zoomout", "Oddal");
 
 		lang.setProperty("menu-vertex", "Wierzchołek");
 		lang.setProperty("menu-vertex-add", "Dodaj wierzchołek");
@@ -298,22 +300,22 @@ public class Language
 		lang.setProperty("pref-edge-font-size", "Domyślny rozmiar czcionki");
 		lang.setProperty("pref-edge-font-color", "Domyślny kolor czcionki");
 
-		lang.setProperty("properties", "Właściwości"); //Właściwości
-		lang.setProperty("prop-id", "Id"); //id
-		lang.setProperty("prop-border-color", "Kolor krawędzi"); //Kolor obramowania
-		lang.setProperty("prop-border-width", "Grubość krawędzi"); //grubosc obramowania
-		lang.setProperty("prop-font-family", "Czcionka"); //czcionka
-		lang.setProperty("prop-font-size", "Rozmiar czcionki"); //rozmiar czcionki
-		lang.setProperty("prop-font-color", "Kolor czcionki"); //kolor czcionki
-		lang.setProperty("prop-vertex-shape", "Kształt"); //kształt
-		lang.setProperty("prop-vertex-height", "Wysokość wierzchołka"); //wysokosc
-		lang.setProperty("prop-vertex-width", "Szerokość wierzchołka"); //szerokosc
-		lang.setProperty("prop-vertex-fill-color", "Kolor wypełnienia"); //Kolor wypełnienia
-		lang.setProperty("prop-vertex-name", "Nazwa"); //Kolor wypełnienia
-		lang.setProperty("prop-edge-source", "Źródło"); //źródło
-		lang.setProperty("prop-edge-target", "Cel"); //cel
-		lang.setProperty("prop-edge-weight", "Waga"); //waga
-		lang.setProperty("prop-edge-capacity", "Przepustowość"); //przepustowosc
+		lang.setProperty("properties", "Właściwości");
+		lang.setProperty("prop-id", "Id");
+		lang.setProperty("prop-border-color", "Kolor krawędzi");
+		lang.setProperty("prop-border-width", "Grubość krawędzi");
+		lang.setProperty("prop-font-family", "Czcionka");
+		lang.setProperty("prop-font-size", "Rozmiar czcionki");
+		lang.setProperty("prop-font-color", "Kolor czcionki");
+		lang.setProperty("prop-vertex-shape", "Kształt");
+		lang.setProperty("prop-vertex-height", "Wysokość wierzchołka");
+		lang.setProperty("prop-vertex-width", "Szerokość wierzchołka");
+		lang.setProperty("prop-vertex-fill-color", "Kolor wypełnienia");
+		lang.setProperty("prop-vertex-name", "Nazwa");
+		lang.setProperty("prop-edge-source", "Źródło");
+		lang.setProperty("prop-edge-target", "Cel");
+		lang.setProperty("prop-edge-weight", "Waga");
+		lang.setProperty("prop-edge-capacity", "Przepustowość");
 		lang.setProperty("prop-edge-cost", "Koszt");
 
 		lang.setProperty("memento-change-color", "Zmień kolor");
@@ -350,6 +352,8 @@ public class Language
 		lang.setProperty("menu-edit-redo", "Redo");
 		lang.setProperty("menu-edit-selectable", "Selectable");
 		lang.setProperty("menu-edit-connectable", "Connectable");
+		lang.setProperty("menu-edit-zoomin", "Zoom In");
+		lang.setProperty("menu-edit-zoomout", "Zoom Out");
 
 		lang.setProperty("menu-vertex", "Vertex");
 		lang.setProperty("menu-vertex-add", "Add vertex");
@@ -621,6 +625,24 @@ public class Language
 		lang.setProperty("pref-edge-cost", "Default second value in double weighted graph");
 		lang.setProperty("pref-edge-font-size", "Default font size");
 		lang.setProperty("pref-edge-font-color", "Default font color");
+
+		lang.setProperty("properties", "Properties");
+		lang.setProperty("prop-id", "Id");
+		lang.setProperty("prop-border-color", "Border color");
+		lang.setProperty("prop-border-width", "Border width");
+		lang.setProperty("prop-font-family", "Font");
+		lang.setProperty("prop-font-size", "Font size");
+		lang.setProperty("prop-font-color", "Font color");
+		lang.setProperty("prop-vertex-shape", "Shape");
+		lang.setProperty("prop-vertex-height", "Height");
+		lang.setProperty("prop-vertex-width", "Width");
+		lang.setProperty("prop-vertex-fill-color", "Fill color");
+		lang.setProperty("prop-vertex-name", "Name");
+		lang.setProperty("prop-edge-source", "Source");
+		lang.setProperty("prop-edge-target", "Target");
+		lang.setProperty("prop-edge-weight", "Weight");
+		lang.setProperty("prop-edge-capacity", "Capacity");
+		lang.setProperty("prop-edge-cost", "Cost");
 
 		lang.setProperty("memento-change-color", "Change color");
 		lang.setProperty("memento-change-font", "Change font");

@@ -27,9 +27,11 @@ import org.jgrapht.WeightedGraph;
 import static com.mxgraph.util.mxConstants.*;
 
 /**
- * Created by Basia on 14.07.2016.
+ * Klasa wyświetla okno z parametrami zaznaczonych elementów grafu.
  *
  * @author Barbara Kulas
+ *
+ * @see ActionListener
  */
 public class ActionShowProperties implements ActionListener
 {
@@ -96,7 +98,7 @@ public class ActionShowProperties implements ActionListener
     }
 
     /**
-     *
+     * Metoda sprawdza ile i jakie obiekty są zaznaczone i wyświetla okno z odpowiednimi parametrami.
      */
     @Override
     public void actionPerformed(ActionEvent arg0)
@@ -140,6 +142,9 @@ public class ActionShowProperties implements ActionListener
         }
     }
 
+    /**
+     * Metoda ustawia parametry okna.
+     */
     private void showProperties(boolean multi)
     {
         cell = (mxCell)editor.getGraphComponent().getGraph().getSelectionCell();
@@ -166,10 +171,6 @@ public class ActionShowProperties implements ActionListener
         frame.setLocationRelativeTo(editor.getGraphComponent());
         frame.setVisible(true);
 
-//        JOptionPane.showMessageDialog(editor.getGraphComponent(), p,
-//                lang.getProperty("properties"), JOptionPane.PLAIN_MESSAGE);
-
-        //saveChanges();
         if(changed) editor.saveState(lang.getProperty("memento-change"));
     }
 
@@ -200,6 +201,9 @@ public class ActionShowProperties implements ActionListener
         return buttonPanel;
     }
 
+    /**
+     * Metoda tworzy etykiety pól właściwości.
+     */
     private void createLabelsColumn(boolean multi){
 
         if(!multi) p.add(new JLabel(lang.getProperty("prop-id")), "0 0 r c"); //id
@@ -231,6 +235,9 @@ public class ActionShowProperties implements ActionListener
         }
     }
 
+    /**
+     * Metoda tworzy pola do zmiany wartości właściwości.
+     */
     private void createParamsColumn(boolean multi){
 
         if(!multi) p.add(new JLabel(cell.getId()), "2 0 l c"); //id
@@ -441,6 +448,10 @@ public class ActionShowProperties implements ActionListener
         return edgeCost;
     }
 
+    /**
+     * Metoda sprawdza czy wprowadzone dane zostały zmienione.
+     * W razie potrzeby zmienia wartości w grafie wartswy wizualnej lub matematycznej.
+     */
     private void saveChanges(){
 
         //bordercolor

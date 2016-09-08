@@ -35,32 +35,16 @@ public class EventKeyListener extends JFrame implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent kevt) {
-        //System.out.println("keyReleased");
-/*
-        if ((kevt.getKeyCode() == KeyEvent.VK_Z) && ((kevt.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
-            System.out.println("woot! Z");
-            //origin.undo();
-            System.out.println("UNDO");
-        }
 
-        if ((kevt.getKeyCode() == KeyEvent.VK_Y) && ((kevt.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
-            System.out.println("woot! Y");
-            //origin.redo();
-            System.out.println("REDO");
-        }
-*/
-        if ((kevt.getKeyCode() == KeyEvent.VK_UP)) {
+        if ((kevt.getKeyCode() == KeyEvent.VK_ADD)) {
             System.out.println("+");
-            //origin.undo();
-            //editor.getGraphComponent().setPageVisible(true);
+            editor.getGraphComponent().zoomAndCenter();
             editor.getGraphComponent().zoomIn();
             System.out.println("UP");
         }
 
-        if ((kevt.getKeyCode() == KeyEvent.VK_DOWN)) {
+        if ((kevt.getKeyCode() == KeyEvent.VK_SUBTRACT)) {
             System.out.println("+");
-            //origin.undo();
-            //editor.getGraphComponent().setPageVisible(true);
             editor.getGraphComponent().zoomOut();
             System.out.println("UP");
         }

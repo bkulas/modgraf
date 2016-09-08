@@ -1,7 +1,7 @@
 package modgraf.memento;
 
 /**
- * Created by Basia on 15.06.2016.
+ * Klasa odpowiada za przechowywanie stanu programu.
  *
  * @author Barbara Kulas
  */

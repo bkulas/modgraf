@@ -59,6 +59,9 @@ public class MenuBar extends JMenuBar
 		edit.add(createMenuItem("menu-edit-undo", new ActionUndo(editor), false, "icons/undo.png", "ctrl Z"));
 		edit.add(createMenuItem("menu-edit-redo", new ActionRedo(editor), false, "icons/redo.png", "ctrl shift Z"));
 		edit.addSeparator();
+		edit.add(createMenuItem("menu-edit-zoomout", new ActionZoomOut(editor), false, "icons/pomniejsz.png", ""));
+		edit.add(createMenuItem("menu-edit-zoomin", new ActionZoomIn(editor), false, "icons/powieksz.png", ""));
+		edit.addSeparator();
 		edit.add(createCheckboxMenuItem("menu-edit-selectable", Settings.selectable));
 		edit.add(createCheckboxMenuItem("menu-edit-connectable", Settings.connectable));
 		add(edit);

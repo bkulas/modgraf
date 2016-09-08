@@ -11,7 +11,8 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by Basia on 15.06.2016.
+ * Klasa odpowiada za tworzenie pamiątki ze stanem programu
+ * oraz jego odtworzenie po operacji undo lub redo.
  *
  * @author Barbara Kulas
  */

@@ -8,9 +8,11 @@ import java.awt.event.ActionListener;
 import java.util.Properties;
 
 /**
- * Created by barbara.kulas on 2016-08-09.
+ * Klasa odpowiada za wywołanie akcji undo - cofnięcia wykonanej czynności.
  *
  * @author Barbara Kulas
+ *
+ * @see ActionListener
  */
 public class ActionUndo implements ActionListener {
 

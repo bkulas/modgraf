@@ -709,10 +709,11 @@ public class Editor
 		return new Dimension(width, height);
 	}
 
+	/**
+	 * Metoda zapisuje stan programu.
+	 */
 	public void saveState(String nazwa){
 		originator.setState(nazwa);
-		//ActionSaveAs a = new ActionSaveAs(this);
-		//originator.setState(a.buildXml(graphComponent.getGraph(), graphT));
 	}
 
 	//funkcje do testowania
