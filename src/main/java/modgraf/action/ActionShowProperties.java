@@ -625,15 +625,18 @@ public class ActionShowProperties implements ActionListener
             }
 
             //weight
-            if(edgeWeight.getText() != null) {
-                if (gt instanceof ModgrafUndirectedWeightedGraph) {
+
+            if (gt instanceof ModgrafUndirectedWeightedGraph) {
+                if(edgeWeight.getText() != null) {
                     if (!edgeWeight.getText().equals(cell.getValue().toString())) {
                         cell.setValue(edgeWeight.getValue());
                         int w = (int) edgeWeight.getValue();
                         ((WeightedEdgeImpl) e).setWeight((double) w);
                         changed = true;
                     }
-                } else if (gt instanceof ModgrafDirectedWeightedGraph) {
+                }
+            } else if (gt instanceof ModgrafDirectedWeightedGraph) {
+                if (edgeWeight.getText() != null) {
                     if (!edgeWeight.getText().equals(cell.getValue().toString())) {
                         cell.setValue(edgeWeight.getValue());
                         int w = (int) edgeWeight.getValue();

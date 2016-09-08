@@ -3,6 +3,7 @@ package modgraf.event;
 import java.awt.event.MouseEvent;
 import java.util.Map;
 import java.util.Properties;
+import java.awt.Point;
 
 import javax.swing.JOptionPane;
 
@@ -21,6 +22,7 @@ import com.mxgraph.model.mxCell;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.view.mxGraph;
+import org.w3c.dom.Document;
 
 /**
  * Zdarzenie <code>mxEvent.CELLS_ADDED</code> na obiekcie {@link mxGraph} 
@@ -65,7 +67,6 @@ public class EventAddCellsListener implements mxIEventListener
 				{
 					mxCell cell = (mxCell)cells[i];
 					addCellToGraphT(cell);
-//					addCellToGraphT(cell, evt);
 					if(cell.isVertex())
 						editor.saveState(editor.getLanguage().getProperty("memento-add-vertex"));
 					else editor.saveState(editor.getLanguage().getProperty("memento-add-edge"));
@@ -75,10 +76,10 @@ public class EventAddCellsListener implements mxIEventListener
 	}
 
 	private void addCellToGraphT(mxCell cell)
-//	private void addCellToGraphT(mxCell cell, mxEventObject event)
 	{
 		Graph<Vertex, ModgrafEdge> graphT = editor.getGraphT();
 		Map<String, Vertex> vertices = editor.getVertices();
+		mxGraph graph = editor.getGraphComponent().getGraph();
 		if (cell.isVertex())
 		{
 			Vertex vertex = new Vertex(cell);
@@ -102,29 +103,38 @@ public class EventAddCellsListener implements mxIEventListener
 
 //				MouseEvent
 
-				mxGraph graph = editor.getGraphComponent().getGraph();
 				Properties prop = editor.getProperties();
 				int width = Integer.parseInt(prop.getProperty("default-vertex-width"));
 				int height = Integer.parseInt(prop.getProperty("default-vertex-height"));
 				Object parent = graph.getDefaultParent();
-				int vertexPosition = editor.getVertexCounter() * 5;
-//				graph.insertVertex(parent, null, editor.incrementAndGetNewVertexCounter(),
-//						vertexPosition, vertexPosition, width, height, "vertexStyle");
-				cell.setTarget((mxCell)graph.insertVertex(parent, null, editor.incrementAndGetNewVertexCounter(),
-						vertexPosition, vertexPosition, width, height, "vertexStyle"));
 
+				mxCell ver = (mxCell)graph.insertVertex(parent, null, editor.incrementAndGetNewVertexCounter(),
+						(int)cell.getGeometry().getTargetPoint().getX()-10, (int)cell.getGeometry().getTargetPoint().getY()-10,
+						width, height, "vertexStyle");
+				cell.setTarget(ver);
+				ver.insertEdge(cell, false);
+
+//				Vertex vertex = new Vertex(ver);
+//				graphT.addVertex(vertex);
+//				editor.setVertexId(ver.getValue().toString(), cell.getId());
+//				vertices.put(vertex.getId(), vertex);
 			}
 
-			System.out.print("target ");
-				System.out.print(cell.getTarget().getId());
-			System.out.print(" source ");
-			System.out.print(cell.getSource().getId());
-			System.out.println(".");
+			System.out.println("krawedx: celka "+cell.getId()+" o źródle "+cell.getSource().getId()+" i celu "+cell.getTarget().getId());
+			System.out.println("zrodło "+cell.getSource().getId()+" children "+cell.getSource().getChildCount());
+			System.out.println("cel "+cell.getTarget().getId()+" children "+cell.getTarget().getChildCount());
+			System.out.println("zrodło "+cell.getSource().getId()+" edges "+cell.getSource().getEdgeCount());
+			System.out.println("cel "+cell.getTarget().getId()+" edges "+cell.getTarget().getEdgeCount());
+			System.out.println("zrodło "+cell.getSource().getId()+" edges "+cell.getSource().getEdgeAt(0));
+			System.out.println("cel "+cell.getTarget().getId()+" edges "+cell.getTarget().getEdgeAt(0));
 
 			Vertex target = vertices.get(cell.getTarget().getId());
+			System.out.print("targecik "+target.getId()+" o nazwie "+target.getName());
 			ModgrafEdge e = graphT.addEdge(source, target);
+			editor.setEdgeId(source.getId(), target.getId(), cell.getId());
 			if (e != null)
 			{
+				System.out.print(" jest e ");
 				e.setId(cell.getId());
 				setEdgeValue(cell, graphT, e);
 				editor.getEdges().put(cell.getId(), e);
@@ -138,6 +148,13 @@ public class EventAddCellsListener implements mxIEventListener
 					    lang.getProperty("warning"), JOptionPane.WARNING_MESSAGE);
 			}
 		}
+		/*
+		ActionSaveAs a = new ActionSaveAs(editor);
+		ActionOpen a2 = new ActionOpen(editor, true);
+		Document doc = a2.buildXmlDocument(a.buildXml(graph, graphT));
+		a2.createGraphTFromXmlDocument(doc);
+		a2.setmxGraph(doc);
+		*/
 	}
 
 	private void setEdgeValue(mxCell cell, Graph<Vertex, ModgrafEdge> graphT, ModgrafEdge e)

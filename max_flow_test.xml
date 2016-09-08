@@ -1,0 +1,152 @@
+<Modgraf>
+<mxGraphModel type="directed" vertexCounter="8" weighted="1">
+<root>
+<mxCell id="0"/>
+<mxCell id="1" parent="0"/>
+<mxCell id="2" parent="1" style="vertexStyle" value="s" vertex="1">
+<mxGeometry as="geometry" height="50.0" width="50.0" x="30.0" y="160.0"/>
+</mxCell>
+<mxCell edge="1" id="3" parent="1" source="2" style="" target="4" value="50">
+<mxGeometry as="geometry" relative="1">
+<mxPoint as="sourcePoint" x="60.0" y="150.0"/>
+<mxPoint as="targetPoint" x="160.0" y="70.0"/>
+</mxGeometry>
+</mxCell>
+<mxCell id="4" parent="1" style="vertexStyle" value="2" vertex="1">
+<mxGeometry as="geometry" height="50.0" width="50.0" x="160.0" y="10.0"/>
+</mxCell>
+<mxCell edge="1" id="5" parent="1" source="2" style="" target="6" value="70">
+<mxGeometry as="geometry" relative="1">
+<mxPoint as="sourcePoint" x="60.0" y="150.0"/>
+<mxPoint as="targetPoint" x="80.0" y="50.0"/>
+</mxGeometry>
+</mxCell>
+<mxCell id="6" parent="1" style="vertexStyle" value="3" vertex="1">
+<mxGeometry as="geometry" height="50.0" width="50.0" x="160.0" y="150.0"/>
+</mxCell>
+<mxCell edge="1" id="7" parent="1" source="2" style="" target="8" value="60">
+<mxGeometry as="geometry" relative="1">
+<mxPoint as="sourcePoint" x="60.0" y="150.0"/>
+<mxPoint as="targetPoint" x="150.0" y="220.0"/>
+</mxGeometry>
+</mxCell>
+<mxCell id="8" parent="1" style="vertexStyle" value="4" vertex="1">
+<mxGeometry as="geometry" height="50.0" width="50.0" x="160.0" y="280.0"/>
+</mxCell>
+<mxCell id="9" parent="1" style="vertexStyle" value="5" vertex="1">
+<mxGeometry as="geometry" height="50.0" width="50.0" x="370.0" y="10.0"/>
+</mxCell>
+<mxCell id="10" parent="1" style="vertexStyle" value="6" vertex="1">
+<mxGeometry as="geometry" height="50.0" width="50.0" x="370.0" y="150.0"/>
+</mxCell>
+<mxCell id="11" parent="1" style="vertexStyle" value="7" vertex="1">
+<mxGeometry as="geometry" height="50.0" width="50.0" x="370.0" y="280.0"/>
+</mxCell>
+<mxCell edge="1" id="12" parent="1" source="4" style="" target="9" value="36">
+<mxGeometry as="geometry" relative="1" x="-1.0" y="15.0">
+<mxPoint as="sourcePoint" x="190.0" y="40.0"/>
+<mxPoint as="targetPoint" x="350.0" y="40.0"/>
+<mxPoint as="offset" x="20.0"/>
+</mxGeometry>
+</mxCell>
+<mxCell edge="1" id="13" parent="1" source="4" style="" target="10" value="42">
+<mxGeometry as="geometry" relative="1" x="-1.0" y="7.0">
+<mxPoint as="sourcePoint" x="190.0" y="40.0"/>
+<mxPoint as="targetPoint" x="330.0" y="140.0"/>
+<mxPoint as="offset" x="6.0" y="4.0"/>
+</mxGeometry>
+</mxCell>
+<mxCell edge="1" id="14" parent="1" source="4" style="" target="11" value="18">
+<mxGeometry as="geometry" relative="1" x="-1.0" y="-9.0">
+<mxPoint as="sourcePoint" x="190.0" y="40.0"/>
+<mxPoint as="targetPoint" x="330.0" y="230.0"/>
+<mxPoint as="offset" x="3.0" y="5.0"/>
+</mxGeometry>
+</mxCell>
+<mxCell edge="1" id="15" parent="1" source="6" style="" target="9" value="16">
+<mxGeometry as="geometry" relative="1" x="-1.0" y="15.0">
+<mxPoint as="sourcePoint" x="190.0" y="140.0"/>
+<mxPoint as="targetPoint" x="330.0" y="40.0"/>
+<mxPoint as="offset" x="8.0" y="-6.0"/>
+</mxGeometry>
+</mxCell>
+<mxCell edge="1" id="16" parent="1" source="6" style="" target="10" value="34">
+<mxGeometry as="geometry" relative="1" x="-1.0" y="5.0">
+<mxPoint as="sourcePoint" x="190.0" y="140.0"/>
+<mxPoint as="targetPoint" x="340.0" y="140.0"/>
+<mxPoint as="offset" x="10.0"/>
+</mxGeometry>
+</mxCell>
+<mxCell edge="1" id="17" parent="1" source="6" style="" target="11" value="28">
+<mxGeometry as="geometry" relative="1" x="-1.0" y="-7.0">
+<mxPoint as="sourcePoint" x="190.0" y="140.0"/>
+<mxPoint as="targetPoint" x="320.0" y="230.0"/>
+<mxPoint as="offset" x="4.0" y="3.0"/>
+</mxGeometry>
+</mxCell>
+<mxCell edge="1" id="18" parent="1" source="8" style="" target="9" value="31">
+<mxGeometry as="geometry" relative="1" x="-1.0" y="1.0">
+<mxPoint as="sourcePoint" x="190.0" y="240.0"/>
+<mxPoint as="targetPoint" x="330.0" y="50.0"/>
+<mxPoint as="offset" x="7.0" y="-9.0"/>
+</mxGeometry>
+</mxCell>
+<mxCell edge="1" id="19" parent="1" source="8" style="" target="10" value="23">
+<mxGeometry as="geometry" relative="1" x="-1.0" y="1.0">
+<mxPoint as="sourcePoint" x="190.0" y="240.0"/>
+<mxPoint as="targetPoint" x="330.0" y="150.0"/>
+<mxPoint as="offset" x="11.0" y="-8.0"/>
+</mxGeometry>
+</mxCell>
+<mxCell edge="1" id="20" parent="1" source="8" style="" target="11" value="27">
+<mxGeometry as="geometry" relative="1" x="-1.0" y="-5.0">
+<mxPoint as="sourcePoint" x="190.0" y="240.0"/>
+<mxPoint as="targetPoint" x="330.0" y="240.0"/>
+<mxPoint as="offset" x="10.0"/>
+</mxGeometry>
+</mxCell>
+<mxCell id="21" parent="1" style="vertexStyle" value="t" vertex="1">
+<mxGeometry as="geometry" height="50.0" width="50.0" x="500.0" y="150.0"/>
+</mxCell>
+<mxCell edge="1" id="22" parent="1" source="9" style="" target="21" value="80">
+<mxGeometry as="geometry" relative="1">
+<mxPoint as="sourcePoint" x="340.0" y="40.0"/>
+<mxPoint as="targetPoint" x="460.0" y="130.0"/>
+</mxGeometry>
+</mxCell>
+<mxCell edge="1" id="23" parent="1" source="10" style="" target="21" value="75">
+<mxGeometry as="geometry" relative="1">
+<mxPoint as="sourcePoint" x="340.0" y="140.0"/>
+<mxPoint as="targetPoint" x="470.0" y="130.0"/>
+</mxGeometry>
+</mxCell>
+<mxCell edge="1" id="24" parent="1" source="11" style="" target="21" value="60">
+<mxGeometry as="geometry" relative="1">
+<mxPoint as="sourcePoint" x="340.0" y="240.0"/>
+<mxPoint as="targetPoint" x="460.0" y="140.0"/>
+</mxGeometry>
+</mxCell>
+</root>
+</mxGraphModel>
+<mxStylesheet>
+<add as="defaultEdge">
+<add as="endArrow" value="classic"/>
+<add as="shape" value="connector"/>
+<add as="fontColor" value="#000000"/>
+<add as="strokeColor" value="#6482B9"/>
+<add as="fontSize" value="14"/>
+<add as="verticalAlign" value="top"/>
+<add as="align" value="top"/>
+<add as="strokeWidth" value="1"/>
+</add>
+<add as="vertexStyle">
+<add as="fontFamily" value="Helvetica"/>
+<add as="shape" value="ellipse"/>
+<add as="fontColor" value="#774400"/>
+<add as="strokeColor" value="#6482B9"/>
+<add as="fontSize" value="14"/>
+<add as="fillColor" value="#C3D9FF"/>
+<add as="strokeWidth" value="1"/>
+</add>
+</mxStylesheet>
+</Modgraf>

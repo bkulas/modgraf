@@ -36,7 +36,7 @@ public class EventKeyListener extends JFrame implements KeyListener {
     @Override
     public void keyReleased(KeyEvent kevt) {
         //System.out.println("keyReleased");
-
+/*
         if ((kevt.getKeyCode() == KeyEvent.VK_Z) && ((kevt.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
             System.out.println("woot! Z");
             //origin.undo();
@@ -48,7 +48,7 @@ public class EventKeyListener extends JFrame implements KeyListener {
             //origin.redo();
             System.out.println("REDO");
         }
-
+*/
         if ((kevt.getKeyCode() == KeyEvent.VK_UP)) {
             System.out.println("+");
             //origin.undo();
