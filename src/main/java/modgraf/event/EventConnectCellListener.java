@@ -56,14 +56,27 @@ public class EventConnectCellListener implements mxIEventListener
 			if (edgeId == null)
 				changeEdgeInGraphT(edge, previous.getId(), source);
 			else
-				removeEdgeAndShowWarning(edge);
+				removeEdgeAndShowWarning(edge, previous.getId(), source);
 		}
 		editor.saveState(editor.getLanguage().getProperty("memento-change-edge"));
 	}
 
-	private void removeEdgeAndShowWarning(mxCell edge)
+	private void removeEdgeAndShowWarning(mxCell edge, String previousId, boolean source)
 	{
 		editor.getGraphComponent().getGraph().getModel().remove(edge);
+		if (source) {
+			Vertex sourceVertex = new Vertex(previousId, editor.getVertices().get(previousId).getName());
+			Vertex targetVertex = new Vertex(edge.getTarget().getId(), editor.getVertices().get(edge.getTarget().getId()).getName());
+//			graphT.removeEdge(sourceVertex, targetVertex);
+			editor.removeEdgeId(sourceVertex.getId(), targetVertex.getId());
+		}
+		else {
+			Vertex sourceVertex = new Vertex(edge.getSource().getId(), editor.getVertices().get(edge.getSource().getId()).getName());
+			Vertex targetVertex = new Vertex(previousId, editor.getVertices().get(previousId).getName());
+//			graphT.removeEdge(sourceVertex, targetVertex);
+			editor.removeEdgeId(sourceVertex.getId(), targetVertex.getId());
+		}
+		editor.getEdges().remove(edge.getId());
 		Properties lang = editor.getLanguage();
 		JOptionPane.showMessageDialog(editor.getGraphComponent(),
 				lang.getProperty("warning-not-add-edge"),
@@ -101,7 +114,6 @@ public class EventConnectCellListener implements mxIEventListener
 	{
 		Vertex source = new Vertex(edge.getSource());
 		Vertex target = new Vertex(edge.getTarget());
-		//graphT.addEdge(source, target);
 		String id = edge.getId();
 		ModgrafEdge e = graphT.addEdge(source, target);
 		e.setId(edge.getId());
@@ -109,8 +121,5 @@ public class EventConnectCellListener implements mxIEventListener
 		if (graphT instanceof UndirectedGraph)
 			editor.setEdgeId(target.getId(), source.getId(), id);
 		editor.getEdges().put(edge.getId(), e);
-		//ModgrafEdge e = editor.getEdges().get(id);
-		//e.setId(id);
-		//gdzie tworzy się ta krawedz?? ModgrafEdge - znaleźć jej źródło i cel
 	}
 }

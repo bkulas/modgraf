@@ -154,6 +154,7 @@ public class Language
 
 		lang.setProperty("question-changes-exist", "Istnieją zmiany, które nie zostały zapisane.\nCzy na pewno chcesz kontynuować?");
 		lang.setProperty("question-save-before-exit", "Czy chcesz zapisać zmiany przed wyjściem?");
+		lang.setProperty("question-gen-changes-exist", "Niezapisane zmiany zostaną utracone.\nCzy na pewno chcesz kontynuować?");
 		lang.setProperty("question-file-exists", "Plik o podanej nazwie już istnieje.\nCzy chcesz go zastąpić?");
 		lang.setProperty("question-transparent-background", "Czy chcesz aby tło było przeźroczyste?");
 		
@@ -331,6 +332,7 @@ public class Language
 		lang.setProperty("memento-remove-cell", "Usuń");
 		lang.setProperty("memento-generate_graph", "Generuj graf");
 		lang.setProperty("memento-convert", "Konwertuj");
+		lang.setProperty("memento-algorithm", "Wykonaj algorytm");
 
 		return lang;
 	}
@@ -657,6 +659,7 @@ public class Language
 		lang.setProperty("memento-remove-cell", "Remove");
 		lang.setProperty("memento-generate_graph", "Generate graph");
 		lang.setProperty("memento-convert", "Convert");
+		lang.setProperty("memento-algorithm", "Do algorithm");
 		
 		return lang;
 	}

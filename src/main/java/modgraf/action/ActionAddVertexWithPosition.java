@@ -46,6 +46,7 @@ public class ActionAddVertexWithPosition implements ActionListener
 		Object parent = graph.getDefaultParent();
 		graph.insertVertex(parent, null, editor.incrementAndGetNewVertexCounter(), 
 				point.x, point.y, width, height, "vertexStyle");
+		editor.saveState(editor.getLanguage().getProperty("memento-add-vertex"));
 	}
 
 }

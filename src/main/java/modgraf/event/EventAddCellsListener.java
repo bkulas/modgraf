@@ -67,9 +67,7 @@ public class EventAddCellsListener implements mxIEventListener
 				{
 					mxCell cell = (mxCell)cells[i];
 					addCellToGraphT(cell);
-					if(cell.isVertex())
-						editor.saveState(editor.getLanguage().getProperty("memento-add-vertex"));
-					else editor.saveState(editor.getLanguage().getProperty("memento-add-edge"));
+					if(cell.isEdge()) editor.saveState(editor.getLanguage().getProperty("memento-add-edge"));
 				}
 			}
 		}
@@ -91,17 +89,8 @@ public class EventAddCellsListener implements mxIEventListener
 		{
 			Vertex source = vertices.get(cell.getSource().getId());
 
-			//każde dodanie krawedzi dodaje nowy wierzcholek w położeniu początkowym
-			//sprawdzić czy rowniez w warstwie logicznej - chyba tak (można dodac krawedz do tego wierzcholka)
-			//nalezy użyc funkcji z ActionAddVertexWithPosition
+			//każde dodanie krawedzi dodaje nowy wierzcholek
 			if (cell.getTarget() == null){
-				System.out.print("target ");
-//				System.out.print(cell.getTarget().getId());
-				System.out.print(" source ");
-				System.out.print(cell.getSource().getId());
-				System.out.println(".");
-
-//				MouseEvent
 
 				Properties prop = editor.getProperties();
 				int width = Integer.parseInt(prop.getProperty("default-vertex-width"));
@@ -109,32 +98,17 @@ public class EventAddCellsListener implements mxIEventListener
 				Object parent = graph.getDefaultParent();
 
 				mxCell ver = (mxCell)graph.insertVertex(parent, null, editor.incrementAndGetNewVertexCounter(),
-						(int)cell.getGeometry().getTargetPoint().getX()-10, (int)cell.getGeometry().getTargetPoint().getY()-10,
+						(int)cell.getGeometry().getTargetPoint().getX()-25, (int)cell.getGeometry().getTargetPoint().getY()-25,
 						width, height, "vertexStyle");
 				cell.setTarget(ver);
 				ver.insertEdge(cell, false);
-
-//				Vertex vertex = new Vertex(ver);
-//				graphT.addVertex(vertex);
-//				editor.setVertexId(ver.getValue().toString(), cell.getId());
-//				vertices.put(vertex.getId(), vertex);
 			}
 
-			System.out.println("krawedx: celka "+cell.getId()+" o źródle "+cell.getSource().getId()+" i celu "+cell.getTarget().getId());
-			System.out.println("zrodło "+cell.getSource().getId()+" children "+cell.getSource().getChildCount());
-			System.out.println("cel "+cell.getTarget().getId()+" children "+cell.getTarget().getChildCount());
-			System.out.println("zrodło "+cell.getSource().getId()+" edges "+cell.getSource().getEdgeCount());
-			System.out.println("cel "+cell.getTarget().getId()+" edges "+cell.getTarget().getEdgeCount());
-			System.out.println("zrodło "+cell.getSource().getId()+" edges "+cell.getSource().getEdgeAt(0));
-			System.out.println("cel "+cell.getTarget().getId()+" edges "+cell.getTarget().getEdgeAt(0));
-
 			Vertex target = vertices.get(cell.getTarget().getId());
-			System.out.print("targecik "+target.getId()+" o nazwie "+target.getName());
 			ModgrafEdge e = graphT.addEdge(source, target);
 			editor.setEdgeId(source.getId(), target.getId(), cell.getId());
 			if (e != null)
 			{
-				System.out.print(" jest e ");
 				e.setId(cell.getId());
 				setEdgeValue(cell, graphT, e);
 				editor.getEdges().put(cell.getId(), e);
@@ -148,13 +122,6 @@ public class EventAddCellsListener implements mxIEventListener
 					    lang.getProperty("warning"), JOptionPane.WARNING_MESSAGE);
 			}
 		}
-		/*
-		ActionSaveAs a = new ActionSaveAs(editor);
-		ActionOpen a2 = new ActionOpen(editor, true);
-		Document doc = a2.buildXmlDocument(a.buildXml(graph, graphT));
-		a2.createGraphTFromXmlDocument(doc);
-		a2.setmxGraph(doc);
-		*/
 	}
 
 	private void setEdgeValue(mxCell cell, Graph<Vertex, ModgrafEdge> graphT, ModgrafEdge e)

@@ -67,7 +67,7 @@ public class ActionGenerateGraph implements ActionListener
 	{
 		if (!editor.isModified()
 				|| JOptionPane.showConfirmDialog(editor.getGraphComponent(),
-				lang.getProperty("question-changes-exist"))
+				lang.getProperty("question-gen-changes-exist"))
 				== JOptionPane.YES_OPTION)
 		{
 			openParamsWindow();

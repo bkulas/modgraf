@@ -108,6 +108,7 @@ public abstract class ModgrafAbstractAlgorithm implements ActionListener {
 			clearBoldLines();
 			editor.getGraphComponent().refresh();
 			findAndShowResult();
+			editor.saveState(lang.getProperty("memento-algorithm"));
 		}
 	}
 
@@ -278,6 +279,7 @@ public abstract class ModgrafAbstractAlgorithm implements ActionListener {
 		}
 		frame.dispose();
 		findAndShowResult();
+		editor.saveState(lang.getProperty("memento-algorithm"));
 	}
 
 	/**
